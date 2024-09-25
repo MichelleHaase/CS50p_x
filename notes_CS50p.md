@@ -141,4 +141,4 @@ match Var:
             case _:     #default
                 print()
 ```
-# no break or default needed case _: is optional
+ no break or default needed case _: is optional
