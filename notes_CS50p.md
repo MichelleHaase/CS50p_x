@@ -86,18 +86,22 @@ function
 
 # CS50p Lecture 2 Conditionals
 
-< > <= >= == !=
+* < > <= >= == !=
 
 * if elif else
-syntax :    if conditionals:
+syntax :    
+```
+            if conditionals:
                 code
             elif conditional:
                 code
             else:
                 code
+```
 you can use parentheses but they're not necessary
 
 * or and 
+```
 if 90 <= Var and Var <= 100:
 elif 80 <= Var and Var < 90:
     ==
@@ -106,6 +110,7 @@ elif 80 <= Var < 90:
     == assuming its between 0 and 100
 if Var >= 90:
 elif Var >= 80:
+```
 elif is essential here, since two if statements are not exclusive they both would be answered
 
 * math operators + - * / %(modulo)
@@ -126,11 +131,14 @@ def is_even(n):
     return n % 2 == 0
 ```
 * case match statement
-Syntax: match Var:
+Syntax: 
+```
+match Var:
             case "one" | "three" | "four":      # | being a logical or
                 print()
             case "two":
                 print()
             case _:     #default
                 print()
+```
 # no break or default needed case _: is optional
