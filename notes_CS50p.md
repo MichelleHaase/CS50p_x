@@ -10,6 +10,7 @@ Arguments (only comma separated + concatenates strings and therefore doesn't ins
 whitespace)
 parameters like sep='' and end='' can be overwritten when using the function like
 
+
 ```
 print("this is text", end='\t')
 ```
