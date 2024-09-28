@@ -23,6 +23,7 @@ f-strings allow to see certain parts inside of "" as code
 print(f"this is text and {Variable}")
 print(f"{Number:.2f}")--prints Var Number(float) with two positions after decimal point .
 print(f"{Number:,}")-- makes a , after every third number (usually . in Ger)
+print("meow" * 3, end="") -- multiplies print statements eg printing it 3 times
 ```
 
 
@@ -142,3 +143,56 @@ match Var:
                 print()
 ```
  no break or default needed case _: is optional
+
+# CS50p Lecture 3 Loops
+## while Loops
+
+```
+i=0
+while i < 3:
+    print()
+    i+=1
+
+while True:
+    n= int(input("What's n? "))
+    if n > 0:
+        break
+```
+## For Loops
+iterates over list of items
+if the idx is only needed for the Loops and not used its 
+costum to name it _
+```
+for _ in range(3):
+    print()
+
+for i in List:
+    print(i)
+
+for i in range(len(List)):
+    print(i + 1, List[i]) -- prints the ranking and the contents together
+```
+## dicts
+define absence of a Value with None
+
+
+```
+students =
+{
+    "Key": "Value",
+    "Studemt2": "Huffelpuff",
+    "Studemt3": "Griffindor",
+    "Studemt4": "Ravenclaw",
+    "Studemt5": "Griffindor",
+    
+}
+Values can be accessed by print(students["Studemt2"]) --> Huffelpuff
+or by usiung .get print(students.get("Studemt2", "Alternative Print if no Value given))
+
+Dicts can be extended by students.update({new Key/ Value pairs})
+```
+
+
+```
+
+```
