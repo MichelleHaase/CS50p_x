@@ -5,10 +5,11 @@
 * don't forget comments singleLine # multi """ """
 * __pseudocode__ - comments + todo's
 ## functions with example print()
-auto inserts whitespace, linebreak at the en dand space between komma seperated 
-Arguments (only komma seperated + concatanats strings and therefore doesn't insert 
+auto inserts whitespace, line break at the end and space between comma separated 
+Arguments (only comma separated + concatenates strings and therefore doesn't insert 
 whitespace)
 parameters like sep='' and end='' can be overwritten when using the function like
+
 
 ```
 print("this is text", end='\t')
@@ -20,12 +21,13 @@ print("this is \"literally\" text")
 f-strings allow to see certain parts inside of "" as code
 ```
 print(f"this is text and {Variable}")
-print(f"{Number:.2f}")--prints Var Number(float) with two positions after decimalpoint .
+print(f"{Number:.2f}")--prints Var Number(float) with two positions after decimal point .
 print(f"{Number:,}")-- makes a , after every third number (usually . in Ger)
+print("meow" * 3, end="") -- multiplies print statements eg printing it 3 times
 ```
 
 
-## String methodes
+## String methods
 ### strip()
 removes Whitespace from the beginning and the end of str
 ```
@@ -63,7 +65,7 @@ int() str() float()
 
 ## writing  functions
 def - define
-2nd exanmple default output is hello world, with input in name ist hello {name}
+2nd example default output is hello world, with input in name ist hello {name}
 ```
 def hello():
     print("hello")
@@ -82,3 +84,115 @@ function
 ## keywords
 * return, returns value without Var for example from inside a function
 * global makes a global Var not just accessible but changeable inside a function
+
+# CS50p Lecture 2 Conditionals
+
+* < > <= >= == !=
+
+* if elif else
+syntax :    
+```
+            if conditionals:
+                code
+            elif conditional:
+                code
+            else:
+                code
+```
+you can use parentheses but they're not necessary
+
+* or and 
+```
+if 90 <= Var and Var <= 100:
+elif 80 <= Var and Var < 90:
+    ==
+if 90 <= Var <= 100:
+elif 80 <= Var < 90:
+    == assuming its between 0 and 100
+if Var >= 90:
+elif Var >= 80:
+```
+elif is essential here, since two if statements are not exclusive they both would be answered
+
+* math operators + - * / %(modulo)
+modulo syntax:if Var % 2 == 0 -> all even nums would be True
+```
+def is_even(n):
+    if n % 2 == 0:
+        return True
+    else:
+        return False
+# can be condensed to
+
+def is_even(n):
+    return True if n % 2 == 0 else return False
+# and further condensed to since modulo == 0 is boolean expression it self
+
+def is_even(n):
+    return n % 2 == 0
+```
+* case match statement
+Syntax: 
+```
+match Var:
+            case "one" | "three" | "four":      # | being a logical or
+                print()
+            case "two":
+                print()
+            case _:     #default
+                print()
+```
+ no break or default needed case _: is optional
+
+# CS50p Lecture 3 Loops
+## while Loops
+
+```
+i=0
+while i < 3:
+    print()
+    i+=1
+
+while True:
+    n= int(input("What's n? "))
+    if n > 0:
+        break
+```
+## For Loops
+iterates over list of items
+if the idx is only needed for the Loops and not used its 
+costum to name it _
+```
+for _ in range(3):
+    print()
+
+for i in List:
+    print(i)
+
+for i in range(len(List)):
+    print(i + 1, List[i]) -- prints the ranking and the contents together
+```
+## dicts
+define absence of a Value with None
+
+
+```
+students =
+{
+    "Key": "Value",
+    "Studemt2": "Huffelpuff",
+    "Studemt3": "Griffindor",
+    "Studemt4": "Ravenclaw",
+    "Studemt5": "Griffindor",
+    
+}
+Values can be accessed by print(students["Studemt2"]) --> Huffelpuff
+or by usiung .get print(students.get("Studemt2", "Alternative Print if no Value given))
+
+Dicts can be extended by students.update({new Key/ Value pairs})
+```
+
+
+```
+
+```
