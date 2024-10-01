@@ -238,3 +238,7 @@ def get_int():
 except ValueError:
     pass
 ```
+* VSCode comes with a debugger marking the line next to the line number, clicking it until
+  it's red marks the Line as a breakpoint which means when running the script with the debugger
+  the execution pauses on the breakpoint line and gives the option to over or into the code 
+  step by step
