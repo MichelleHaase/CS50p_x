@@ -191,8 +191,50 @@ or by usiung .get print(students.get("Studemt2", "Alternative Print if no Value 
 
 Dicts can be extended by students.update({new Key/ Value pairs})
 ```
-
+# CS50p Lecture 4 Exceptions
+* Syntax Errors always need fixing to run code
+* Runtime Errors need extra code to cover edge cases, like promted Input
+  is not provided at all
+* Value Error eg giving the wrong Datatype to a function
+* Name Error often when using Var that's not defined
 
 ```
+while True:
+    try:
+        x= int(input("What's x? "))
+    except ValueError:  # "ValueError" is case-sensitive
+        print("given Input is not an integer")
+    else: 
+        break
+    
+print(f"x is {X}")
 
+# with try the code tries to execute the given code, if a Value Error arises for example
+# if a str is given to int() it executes the except statement, if the right input is 
+# given and no Value Error raised the else is executed the Loop breaks and the Programm
+# continues, here the Print statement
+
+while True:
+    try:
+        x= int(input("What's x? "))
+        break                       # since this line is only executed if try succeeds the 
+                                    # break can be introduced here, to shorten the Programm
+    except ValueError: 
+        print("given Input is not an integer")
+
+print(f"x is {X}")
+
+def get_int():
+    while True:
+        try:
+            x= int(input("What's x? "))
+        except ValueError:  
+            print("given Input is not an integer")
+        else: 
+            return x
+# return automatically breaks the loop because it terminates the whole function
+# except also takes pass as code and with that just skips the Error Message and continues the Loop
+
+except ValueError:
+    pass
 ```
