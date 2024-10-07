@@ -21,9 +21,13 @@ print("this is \"literally\" text")
 f-strings allow to see certain parts inside of "" as code
 ```
 print(f"this is text and {Variable}")
+
 print(f"{Number:.2f}")--prints Var Number(float) with two positions after decimal point .
+
 print(f"{Number:,}")-- makes a , after every third number (usually . in Ger)
+
 print("meow" * 3, end="") -- multiplies print statements eg printing it 3 times
+
 ```
 
 
