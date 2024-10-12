@@ -246,3 +246,129 @@ except ValueError:
   it's red marks the Line as a breakpoint which means when running the script with the debugger
   the execution pauses on the breakpoint line and gives the option to over or into the code 
   step by step
+
+# CS50p Lecture 5 Libraries
+* modul/ Libraries has features and function made for reusability
+```
+import random
+
+coin= random.choice(["heads","tails"])
+#print(coin)
+
+from random import choice # this way only the function choice() is importet
+# so the random modul doesnt need to be called. The Scope of the choice() 
+# is on one level with the built-in one and can overwrite them and my own
+
+coin2= choice(["heads","tails"])
+print(coin2)
+
+cards= ["a","b","c"]
+random.shuffle(cards)
+for card in cards:
+    print(card)
+
+import statistics
+
+statistics.mean([100,90])
+```
+sys.argv (stands for argument Vector) is var that automatically creates 
+a list out of all the inputs given
+```
+import sys
+
+print("Hello, my name is", sys.argv[1])
+```
+when the programm is startet with "python Filename.py" sperated with space, the input is given without prompt "python Filename.py Michelle"
+which leads to the output "Hello, my name is Michelle" at index 0 is
+"Filename.py" 
+if no argument is given a IndexError is arises because index 1 of 
+sys.arg is NA
+
+```
+import sys
+
+if len(sys.argv) < 2:
+    print("missing Arguments")
+elif len(sys.argv) > 2:
+    print("Too many Arguments")
+else:
+    print("Hello my name is", sys.argv[1])
+``` 
+if the conditionals should be checked, exited when True but continued 
+when false instead of having the rest of the code inside an else 
+statement sys.exit("exit message") can terminate the program early,
+it actually terminates the program not just ie a Loop like break
+```
+import sys
+
+if len(sys.argv) < 2:
+    sys.exit("missing Arguments")
+elif len(sys.argv) > 2:
+    sys.exit("Too many Arguments")
+
+print("Hello my name is", sys.argv[1])
+```
+to for example printing out several Name Tags
+```
+import sys
+
+if len(sys.argv) < 2:
+    sys.exit("missing Arguments")
+
+for arg in sys.argv[1:]:
+    print("Hello my name is", arg)
+```
+* packages third party Libraries
+* API Application Program interface, "requests" Lib allows to make
+  requests as if made by a Browser
+* JSON Javascript object notation files, text based 
+```
+import requests
+import json
+import sys
+
+if len(sys.argv) !=2:
+    sys.exit()
+
+response= requests.get("https://itunes.apple.com/search?entity=song&limit=1&term=" + sys.argv[1])
+print(json.dumps(response.json(), indent=2))
+```
+to iterate over the output Dict to ie to print all track names for a 
+artist
+
+```
+...
+response= requests.get("https://itunes.apple.com/search?entity=song&limit=50&term=" + sys.argv[1])
+object1= response.json()
+
+for results in object1["results"]:
+    print(results["trackName"])
+```
+## writing own Modul
+```
+in File: test_Modul.py
+
+def main():
+    hello("world")
+    goodbye("Lala")
+
+def hello(name):
+    print(f"hello, {name}")
+
+def goodbye(name):
+    print(f"Goodbye, {name}")
+
+main()
+
+in File Filename.py:
+
+from test_Modul import hello
+hello(sys.argv[1])
+```
+if written this way even if just one function is imported main() is
+called. with the " if __name__ == "__main__":" this is avoided since 
+main can only be called if the Script is executed directly, because 
+ __name__ is only __main__ when the script is run from the 
+ command line
+
+ 
