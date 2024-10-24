@@ -1,7 +1,8 @@
 alphabet = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
-list_alpha= alphabet.split()
+list_alpha = alphabet.split()
 numbers = "1 2 3 4 5 6 7 8 9 0"
 list_nums = numbers.split()
+
 
 def main():
     plate = input("Plate: ").strip()
@@ -12,10 +13,17 @@ def main():
 
 
 def is_valid(s):
-    if string_Len_Fisrt_scnd_Letter(s) and special_Chars(s) and first_nums_stuff(s) and only_nums_after_nums(s):
+    if (
+        string_Len_Fisrt_scnd_Letter(s)
+        and special_Chars(s)
+        and first_nums_stuff(s)
+        and only_nums_after_nums(s)
+    ):
         return True
 
+
 # and first_numb_stuff(s) and numb_stuff(s)
+
 
 def string_Len_Fisrt_scnd_Letter(s):
     if 2 <= len(s) <= 6:
@@ -25,6 +33,7 @@ def string_Len_Fisrt_scnd_Letter(s):
             return False
     else:
         return False
+
 
 def special_Chars(s):
     check = 0
@@ -36,8 +45,9 @@ def special_Chars(s):
     else:
         return False
 
+
 def first_nums_stuff(s):
-    first_num= None
+    first_num = None
     for i in s:
         if i.isdigit():
             first_num = i
@@ -49,7 +59,7 @@ def first_nums_stuff(s):
 
 
 def only_nums_after_nums(s):
-    first_num= None
+    first_num = None
     check = 0
     for i in s:
         if i.isdigit():
