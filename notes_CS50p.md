@@ -1,4 +1,4 @@
-# CS50p Functions and Variables notes
+# CS50p Lecture 0 Functions and Variables notes
 
 * __cli__ - command line interface
 * start from Terminal - python Filename.py
@@ -89,7 +89,7 @@ function
 * return, returns value without Var for example from inside a function
 * global makes a global Var not just accessible but changeable inside a function
 
-# CS50p Lecture 2 Conditionals
+# CS50p Lecture 1 Conditionals
 
 * < > <= >= == !=
 
@@ -148,7 +148,7 @@ match Var:
 ```
  no break or default needed case _: is optional
 
-# CS50p Lecture 3 Loops
+# CS50p Lecture 2 Loops
 ## while Loops
 
 ```
@@ -195,7 +195,7 @@ or by usiung .get print(students.get("Studemt2", "Alternative Print if no Value 
 
 Dicts can be extended by students.update({new Key/ Value pairs})
 ```
-# CS50p Lecture 4 Exceptions
+# CS50p Lecture 3 Exceptions
 * Syntax Errors always need fixing to run code
 * Runtime Errors need extra code to cover edge cases, like promted Input
   is not provided at all
@@ -247,7 +247,7 @@ except ValueError:
   the execution pauses on the breakpoint line and gives the option to over or into the code 
   step by step
 
-# CS50p Lecture 5 Libraries
+# CS50p Lecture 4 Libraries
 * modul/ Libraries has features and function made for reusability
 ```
 import random
@@ -371,4 +371,128 @@ main can only be called if the Script is executed directly, because
  __name__ is only __main__ when the script is run from the 
  command line
 
- 
+ # CS50p Lecture 5 Unit tests
+ * by convention test_Filename.py
+ * import functions to test
+ * by convention "def test_functionname():"
+
+example_file:
+ ```{python}
+def main():
+    x = int(input())
+    print ("x squared is", square(x))
+
+def square(n):
+    return n * n
+
+if __name__ == "__main__":
+    main()
+
+ ```
+  * "assert" only throws errors when test fails --> AssertionError
+ test_example_file:
+
+ ```{python}
+from example_file import square
+
+def main():
+    test_square()
+
+def test_square():
+    try:
+        assert square(2) == 4
+    except AssertionError:
+        print("2 squared was not 4")
+    try:
+        assert square(3) == 9
+    except AssertionError:
+        print("3 squared was not 9")
+    try:
+        assert square(-2) == 4
+    except AssertionError:
+        print("-2 squared was not 4")
+    try:
+        assert square(-3) == 9
+    except AssertionError:
+        print("-3 squared was not 9")
+    try:
+        assert square(0) == 0
+    except AssertionError:
+        print("0 squared was not 0")
+    
+
+if __name__ == "__main__":
+    main()
+ ```
+## pytest 
+* is a 3rd party modul that takes a test as below and runs test accordingly without
+  needing to use exceptions and puts out a overview.
+* it also holds a number of functions like pytest.raises(ErrorType) that allow to test 
+  negative of error cases
+* if a several Test file should be run in the folder with the test files must be file 
+  called __innit__.py to indicate the folder as a package ( a collection of Modules)
+  "pytest Test_folder_name" runs all possible test s in the folder
+* for testing floats since rounding errors can be expected, "pytest.approx(expected_result)"
+  "pytest.approx(expected_result, abs= 0.1)" abs defines the tolerance
+   
+```
+import pytest
+
+from example_file import square
+
+
+def test_positive():
+    assert square(2) == 4
+    assert square(3) == 9
+
+def test_negative():
+    assert square(-2) == 4
+    assert square(-3) == 9
+
+def test_zero():
+    assert square(0) == 0
+
+def test_string():
+    with pytest.raises(TypeError):
+        square("")
+```
+### function without return value can't be tested properly
+
+so example file
+```
+def main():
+    name= input("Name? ")
+    hello(name)
+
+def hello(to="world"):
+    print("hello," to)
+
+if __name__ "__main__":
+    main()
+
+```
+should look like this 
+
+```
+def main():
+    name= input("Name? ")
+    print(hello(name))
+
+def hello(to="world"):
+    return f"hello, {to}"
+
+if __name__ == "__main__":
+    main()
+
+```
+and a test would look like
+```
+from testingstuff import hello
+
+
+def test_argument():
+    assert hello("David") == "hello, David"
+    
+def test_default():
+    assert hello() == "hello, world"
+```

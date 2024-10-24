@@ -1,5 +1,9 @@
-import sys
-import test_Modul
+def main():
+    name= input("Name? ")
+    print(hello(name))
 
-test_Modul.hello(sys.argv[1])
+def hello(to="world"):
+    return f"hello, {to}"
 
+if __name__ == "__main__":
+    main()
