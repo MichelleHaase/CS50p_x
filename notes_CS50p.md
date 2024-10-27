@@ -96,12 +96,12 @@ function
 * if elif else
 syntax :    
 ```
-            if conditionals:
-                code
-            elif conditional:
-                code
-            else:
-                code
+if conditionals:
+    code
+elif conditional:
+    code
+else:
+    code
 ```
 you can use parentheses but they're not necessary
 
@@ -139,12 +139,12 @@ def is_even(n):
 Syntax: 
 ```
 match Var:
-            case "one" | "three" | "four":      # | being a logical or
-                print()
-            case "two":
-                print()
-            case _:     #default
-                print()
+    case "one" | "three" | "four":      # | being a logical or
+        print()
+    case "two":
+        print()
+    case _:     #default
+        print()
 ```
  no break or default needed case _: is optional
 
@@ -495,4 +495,103 @@ def test_argument():
     
 def test_default():
     assert hello() == "hello, world"
+```
+# CS50p Lecture 6 File I/O
+* saving information in Stored memory?? 
+* "w"- writing recreating the file every time
+* "a" - appending to the file, no line breaks included
+* "r" - reading a txt file (default)
+
+```
+file = open("names.txt", "a")
+file.write(f"{name\n"})
+file.close()
+==
+with open("names.txt", "a") as file:
+    file.write(f"{name\n"})
+
+# omits file.close
+```
+```
+with open("names.txt", "r") as file:
+  for line in file:
+      print(line.rstrip()) 
+# rstrip strips the extra \n one from the input one from print
+
+```
+```
+names= []
+
+with open("names.txt") as file:
+  for line in sorted(file):
+      names.append(line.rstrip()) 
+```
+```
+with open("names.csv") as file:
+    for line in file:
+        row = line.rstrip().split(",")
+
+students = []
+
+with open("names.csv") as file:
+    for line in file:
+        name, house = line.rstrip().split(",")
+        student = {"name": name, "house" : house}
+        students.append(student)
+
+def get_name(student):
+    return Student["name"]
+
+for student in sorted(students, key=get_name):
+    print(f"{student['name']}, {student['house']}")
+==
+for student in sorted(students, key=lambda student: student["name"]):
+    print(f"{student['name']}, {student['house']}")
+```
+* lambda (anonyms) functions can be used when a function is only used once
+
+```
+import csv
+
+students = []
+
+with open("names.csv") as file:
+    reader = csv.reader(file)
+    for name, home in reader:
+        students.append({"name": name, "home" : home})
+
+for student in sorted(students, key=lambda student: student["name"]):
+    print(f"{student['name']}, {student['home']}")
+
+# with column headers
+with open("names.csv") as file:
+    reader = csv.Dictreader(file)
+    for row in reader:
+    students.append({"name": row["name"], "home" : row["home"]})
+
+#writing to csv file
+with open("students.csv", "a") as file:
+    writer = csv.writer(file)
+    writer.writerow([name. home])
+
+#writing a dict to csv
+with open("students.csv", "a") as file:
+    writer = csv.DictWiter(file, fieldnames=["name", "home"])
+    writer.writerow({"name": name, "home" : home})
+```
+### for binary files there are differnt Libraries eg Pillow
+```
+import sys
+
+from PIL import Image
+
+images = []
+
+for arg in sys.argv:
+    image = Image.open(arg)
+    images.append(image)
+
+images[0].save(
+    "costumes.gif", save_all=True, append_images=[images[1]], duration=200, loop=0
+)
 ```
