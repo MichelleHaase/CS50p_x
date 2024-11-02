@@ -92,8 +92,9 @@ function
 # CS50p Lecture 1 Conditionals
 
 * < > <= >= == !=
+* := Walross operator used to check conditional and assign value at the same time
 
-* if elif else
+## if elif else
 syntax :    
 ```
 if conditionals:
@@ -375,6 +376,7 @@ main can only be called if the Script is executed directly, because
  * by convention test_Filename.py
  * import functions to test
  * by convention "def test_functionname():"
+ * format stuff to PEP8 conventions with black (pip install)
 
 example_file:
  ```{python}
@@ -594,4 +596,73 @@ for arg in sys.argv:
 images[0].save(
     "costumes.gif", save_all=True, append_images=[images[1]], duration=200, loop=0
 )
+```
+
+# CS50p Lecture 7 Regex
+
+* if Var ie a var holding a string if Var evaluates to True if its not empty
+```
+if Var:
+    print("yes")
+else:
+    print("no")
+```
+* re library
+* . - any char except newline
+* * - 0 or more repetitions
+* + - 1 or more repetitions
+* ? - 0 or 1 repetition
+* {m} - m repetitions
+* {m,n} - m-n repetitions
+* ^ - matches the start o f the string (Anker)
+* $ - matches end of string or end before newline (Anker)
+* [] - set of chars, a-z and 0-9 are predified ranges
+* [^] - complementing set eg not any of these chars
+* \w - any word character [a-zA-Z0-9_]; \W not a word character
+* \d - decimal digit; \D not a decimal digit; 
+* \s whitespace
+* A|B A or B
+* (...) () groups stuff
+* (?:...) (?:) not capturing in .group
+* escaping chars - raw string means not to interpret any backslashes as in \n for new line
+  eg r".*\.\*\+" would be any at least one char then a . a * ending in +
+* flags include re.IGNORECASE re.MULTILINE re.DOTALL
+* f strings can be used in Regex fr""
+* (?P<ExampleName>) - naming groups
+```
+import re
+
+email = input()
+
+if re.search(r"^(\w|\.)+@(\w+\.)+.{2.3}$", email, re.IGNORECASE): # not a final solution
+    print("Valid")
+else:
+    print("invalid")
+```
+```
+import re
+
+name  = input.strip()
+
+if matches := re.search(r"^(.+), *(.+)$", name):
+#    last = matches.group(1)
+#    first = matches.group(2)
+    name  = matches.group(2) + " " + matches.group(1)
+```
+```
+import re
+
+url = input().strip()
+username = re.sub(r"^(https?://)?(www\.)?twitter\.com/", "", url) # substitutes the beginning of link
+print(f"Username: {username}")
+
+url = input().strip()
+ if username := re.search(r"^(?:https?://)?(?:www\.)?twitter\.com/(\w)+$", "", url, re.IGNORECASE):
+    print(f"Username: {username(1)}")
+
+== groups can be named
+
+url = input().strip()
+ if username := re.search(r"^(?:https?://)?(?:www\.)?twitter\.com/(?P<username>\w)+$", "", url, re.IGNORECASE):
+    print(f"Username: {username(username)}")
 ```
