@@ -666,3 +666,237 @@ url = input().strip()
  if username := re.search(r"^(?:https?://)?(?:www\.)?twitter\.com/(?P<username>\w)+$", "", url, re.IGNORECASE):
     print(f"Username: {username(username)}")
 ```
+# CS50p Lecture 8 object-oriented programming
+* own Datattypes(objects) are created with classes
+* keyword "class" names are capitalized by conmvention
+* classes have atributes acessed by .
+* class - definition of new Dataype
+* object - instance of class
+* atributes are tecnically instance variables
+* self gives access to the object at creation
+* __init__ initializes an empty object when first created
+* by setting a input as None in the Initialization it becommes optional
+    def __init__(self, name, house=None):
+* __str__
+```
+class Student:
+    ...
+
+def main():
+    student = get_student()
+    print(f"{student.name} from {student.house}")
+
+
+def get_student():
+    student = Student()
+    student.name = input("Name ")
+    student.house = input("House ")
+    return student
+    
+```
+```
+class Student:
+    def __init__(self, name, house):
+        self.name = name
+        self.house = house
+
+def main():
+    student = get_student()
+    print(f"{student.name} from {student.house}")
+
+
+def get_student():
+    name = input("Name ")
+    house = input("House ")
+    student = Student(name, house)
+    return student
+```
+```
+class Student:
+    def __init__(self, name, house):
+        if not name:
+            raise ValueError("Missing name")
+        if house not in ["Griffindor", "Huffelpuff", "Ravenclaw", "Slytherin"]:
+            raise ValueError("Invalid House")
+        self.name = name
+        self.house = house
+
+def main():
+    student = get_student()
+    print(f"{student.name} from {student.house}")
+
+
+def get_student():
+    name = input("Name ")
+    house = input("House ")
+    try:
+        return Student(name, house)
+    except ValueError:
+        main()
+```
+```
+class Student:
+    def __init__(self, name, house, patronus):
+        if not name:
+            raise ValueError("Missing name")
+        if house not in ["Griffindor", "Huffelpuff", "Ravenclaw", "Slytherin"]:
+            raise ValueError("Invalid House")
+        self.name = name
+        self.house = house
+        self.patronus = patronus
+    def __str__(self):
+        return f"{self.name} from {self.house}"
+    
+    def charm(self):
+        match self.patronus:
+            case "Stag":
+                return "🦌"
+            case "Otter":
+                return "🦦"
+            case "Dog":
+                return "🐶"
+            case _:
+                return "🪄"
+
+def main():
+    student = get_student()
+    print("Expecto Patronum")
+    print(student.charm())
+    print(student)
+
+
+def get_student():
+    name = input("Name ")
+    house = input("House ")
+    patronus = input("patronus ")
+    try:
+        return Student(name, house, patronus)
+    except ValueError:
+        ...
+    
+main()
+```
+* properties 
+* decorators TODO 
+* a setter will always be called if student.house = is called
+  even in the __init__, which measn the error checking only needs to be in the setter
+* instance variables in functions can not have the same name as the function
+  like self.house and def house() so by convention if there is a function like a setter 
+  for a instance variable the variable is named with a leading _ like _house
+  keeping the name self.house in __init__ ensures that the setter with the error check is called
+* function insde of class -> methode
+
+```
+
+class Student:
+    def __init__(self, name, house):
+        if not name:
+            raise ValueError("Missing name")
+        self.name = name
+        self.house = house
+    def __str__(self):
+        return f"{self.name} from {self.house}"
+    # getter
+    @property
+    def house(self):
+        return self._house
+    #setter
+    @house.setter
+    def house(self, house):
+        if house not in ["Griffindor", "Huffelpuff", "Ravenclaw", "Slytherin"]:
+            raise ValueError("Invalid House")
+        self._house = house
+    
+
+def main():
+    student = get_student()
+    print(student)
+
+
+def get_student():
+    name = input("Name ")
+    house = input("House ")
+    return Student(name, house)
+
+    
+main()
+```
+```
+import random
+
+class Hat:
+    def __init__(self):
+        self.houses = ["Griffindor", "Huffelpuff", "Ravenclaw", "Slytherin"]
+
+    def sort(self, name):
+        print(name,"is in", random.choice(self.houses))
+
+hat= Hat()
+hat.sort("Harry")
+```
+*class methodes are defined with the decorator @classmethod
+```
+import random
+
+class Hat:
+    houses = ["Griffindor", "Huffelpuff", "Ravenclaw", "Slytherin"]
+
+    @classmethod
+    def sort(cls, name):
+        print(name,"is in", random.choice(cls.houses))
+
+Hat.sort("Harry")
+```
+* classes are used to bundel function in topics so all student related
+  functions should be in the class student
+* inheritance allows subclasses to acsess functions from a superclass
+  its initialized by putting the superclass in the prototype of the subclass and callintg super().function_to_be_used(Var? to be used)
+  class Professor(Wizard):
+  
+  ```
+class Wizard:
+    def __init__(self, name):
+        if not name:
+            raise ValueError("Missing Name")
+        self.name = name
+
+class Student(Wizard):
+    def __init__(self, name, house):
+        super().__init__(name)
+        self.house = house
+
+class Prodfessor(Wizard):
+    def __init__(self, name, subject):
+        super().__init__(name)
+        self.subject = subject
+
+
+if __name__ == "__main__":
+    main()
+  ```
+* operator overloading, different functions for opperators based on Datatype
+```
+class Vault:
+    def __init__(self, galleons=0, sickels=0, knuts=0):
+        self.galleons = galleons
+        self.sickels = sickels
+        self.knuts = knuts
+    
+    def __str__(self):
+        return f"{self.galleons} Galleons, {self.sickels} Sickels, {self.knuts} Knuts"
+
+    def __add__(self, other):
+        galleons = self.galleons + other.galleons
+        sickels = self.sickels + other.sickels
+        knuts = self.knuts + other.knuts
+        return Vault(galleons, sickels, knuts)
+        
+potter = Vault(100, 50, 25)
+print(potter)
+
+weasly = Vault(25, 50, 100)
+print(weasly)
+
+total = potter + weasly
+print(total)
+```
