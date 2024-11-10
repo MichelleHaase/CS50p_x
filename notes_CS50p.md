@@ -800,7 +800,7 @@ class Student:
     @property
     def house(self):
         return self._house
-    #setter
+    # setter
     @house.setter
     def house(self, house):
         if house not in ["Griffindor", "Huffelpuff", "Ravenclaw", "Slytherin"]:
@@ -853,7 +853,7 @@ Hat.sort("Harry")
   its initialized by putting the superclass in the prototype of the subclass and callintg super().function_to_be_used(Var? to be used)
   class Professor(Wizard):
   
-  ```
+```
 class Wizard:
     def __init__(self, name):
         if not name:
@@ -873,16 +873,16 @@ class Prodfessor(Wizard):
 
 if __name__ == "__main__":
     main()
-  ```
+```
 * operator overloading, different functions for opperators based on Datatype
 ```
 class Vault:
-    def __init__(self, galleons=0, sickels=0, knuts=0):
+    def __init__(self, galleons=0, sickels=0, knuts=0): # all function in class have acsses to those vars
         self.galleons = galleons
         self.sickels = sickels
         self.knuts = knuts
     
-    def __str__(self):
+    def __str__(self): # called everytime print is called
         return f"{self.galleons} Galleons, {self.sickels} Sickels, {self.knuts} Knuts"
 
     def __add__(self, other):
@@ -900,3 +900,157 @@ print(weasly)
 total = potter + weasly
 print(total)
 ```
+## instance methodes / magic methodes
+TODO
+
+# CS50p Lecture 9 Et Cetera
+
+## Sets
+* duplicates get eliminated at casting
+* not sorted but sortable
+
+## global
+* changes the Scope of a Variable to global but keeps it changeable
+* you cant change a gloabal function inside a function only read it
+* 
+```
+balance = 0
+
+def main():
+    deposit(100)
+    withdraw(50)
+    print(balance)
+
+def deposit(n):
+    balance += n
+
+def withdraw(n):
+    balance -= n
+```
+* causes unbound Local error because the global Var balance cant be change inside of deposit
+```
+def main():
+    balance = 0
+    deposit(100)
+    withdraw(50)
+    print(balance)
+
+def deposit(n):
+    balance += n
+
+def withdraw(n):
+    balance -= n
+```
+* causes unbound local Error because balance is only accessable in main
+```
+balance = 0
+
+def main():
+    deposit(100)
+    withdraw(50)
+    print(balance)
+
+def deposit(n):
+    global balace
+    balance += n
+
+def withdraw(n):
+    global balance
+    balance -= n
+```
+* this makes it accessable and changeable
+* better change would be a class since all function in a class can access instance Vars
+```
+class Account:
+    def __init__(self):
+        self._balance = 0
+    
+    @property
+    def balance(self):
+        return self._balance
+    
+    def deposit(self,n):
+        self._balance += n
+
+    def withdraw(self,n):
+        self._balance -= n
+
+def main():
+    account = Account()
+```
+## constants 
+* in Python constants arent inforced its good practice to write constant Var names in all Caps to indicate theyre
+  constants but they are changeable
+* constants should be declared at the  top of the script 
+* numbers that are randomly hardcoded ie in Loops should be constants
+* same goes inside classes constants for Vars declare above __init__(vars accessable to all functions, not depedent on call)
+
+## type Hints
+* type hints are not supported py python it self the modul mypy is needed
+* pip intall mypy
+* excecute code with mypy filename
+* the modul is made to self check code not force types
+* "n: int" tells mypy the input in the function should be a int
+```
+def meow(n: int):
+    for _ in range(n):
+        print("meow")
+
+number = input("Number: ")
+meow(number)
+==
+number: int = input("Number: ")
+meow(number)
+```
+output: error: Argument 1 to "meow" has incompatible type "str"; expected "int"  [arg-type]
+```
+def meow(n: int) -> None:
+    for _ in range(n):
+        print("meow")
+
+number = int(input("Number: "))
+meows: str = meow(number)
+print(meows)
+```
+* -> None implicates that the function doesnt have a return Value can indicate str| int oä
+## Docstrings
+* """comment """ are used for documentation of code
+* Docstrings can be used to create documentation (like a pdf) by using the markdown "restructured text"
+```
+def meow(n: int) -> str:
+    """
+    Meows n times.
+
+    :param n: Number of times to Meow
+    :type n: int
+    :raise TypeError: If n is not a int
+    :return: str of n meows, one per line
+    :rtype: str
+    """
+    return "meow\n" *n
+```
+## argparse
+```
+import argparse
+
+parser =argparse.ArgumentParser(description="Meow like a cat")
+parser.add_argument("-n", default=1, help="number of times to meow", type=int) # type = int, is a actual type cast
+args = parser.parse_args()
+
+for _ in range(args.n):
+    print("meow")
+```
+* allows for arguments to be entered (commandline) in random order copared to sys.argv
+* creating a argument like that allows to easy access documentatiopn with "python filename --help" (commandline)
+  outpurt would be:
+```
+usage: testingstuff.py [-h] [-n N]
+
+Meow like a cat
+
+options:
+  -h, --help  show this help message and exit
+  -n N        number of times to meow
+```
+## unpacking
+
