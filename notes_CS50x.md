@@ -208,7 +208,7 @@ int main(void)
   the var where its saved is a float 
 
 # CS50x Lecture 2 Arrays
-## make vs clang(c language compiler)
+## compilation 
 * clang auto creates a FILE ./a; clang -o names_file file.c
 * needs command line args to define the compilation
 * libraries need to be linked thru command line with -l; clang -o names_file file.c -lcs50
@@ -242,6 +242,23 @@ for (int i = 0; i < N; i++)
   always end with a all-0 byte(sentinel value \0 NUL) that declares the end of the string to the memory
 * arrays are structures wherein several Values can be saved and accessed via indexes
 * arrays need a set number of entries at declaration (for Memory allocation) except strings see above 
+
+```
+#include <sc50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int size = 5;
+    int sequence[size];
+    sequence[0] = 1;
+    for (int i = 1; i < size; i++)
+    {
+        sequence[i] = sequence[i-1] * 2;
+    }
+    
+}
+```
 ## command line arguments
 ```
 #include <cs50.h>
