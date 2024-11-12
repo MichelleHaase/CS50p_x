@@ -1054,3 +1054,96 @@ options:
 ```
 ## unpacking
 
+* when passing arguments to function you can automatically unpack them with a "*" double for dicts
+```
+def total(galleons, sickels, knuts)
+coins = [100,50,25]
+
+total(coins) # Type error because the wrong type(list) has been passed and two Values are missing
+
+total(coins[0], coins[1], coins[2]) # works but can be unübersichtlich when the function takes more arguments
+total(*coins) # works just as the one above because its automatically unpacked
+
+coins {""galleons": 100, "sickels": 50, "knuts": 25}
+total(**coins) # paases Keys first as argument names(keyword arguments) and Values as arg Values
+
+# also works for example with print
+yell("This", "is", "CS50")
+
+def yell(*words)
+  upercased=[]
+  for word in words:
+      uppercased.append(word.upper())
+  print(*uppercased) # THIS IS CS50
+```
+```
+def f (*args, **kwargs) # allows for a undetermend amount of argumenmts an keyword arguments (max 255)
+```
+
+## map
+* maps a function to a sequence of Values
+```
+yell("This", "is", "CS50")
+
+def yell(*words)
+  upercased= map(str.upper, words)
+  print(*uppercased) # THIS IS CS50
+```
+## List comprehension
+```
+yell("This", "is", "CS50")
+
+def yell(*words)
+  upercased= [word.upper() for word in words]
+  print(*uppercased) # THIS IS CS50
+
+
+# can take conditional too
+  yell("This", "is", "CS50")
+
+def yell(*words)
+  upercased= [word.upper() for word in words if word!= "is"]
+  print(*uppercased) # THIS CS50
+```
+## filter
+```
+## imaganry list of dict of hogwarts student called "students"
+
+def sorted(s):
+    return s["house"] == "Griffindor"
+
+griffindors = filter(sorted, students) # applies the sorted function to students and only saves entries that evaluate to True
+
+for griff in sorted(griffindors, key = lambda s; s ["name"]):
+    print(griffindor["name"])
+```
+## Dictionary comprehension
+```
+student=["Hermoine", "Harry", "Ron"]
+
+griff=[]
+
+for student in students:    
+    griff.append({"name": student, "house": "Griffindor"})
+
+==
+
+student=["Hermoine", "Harry", "Ron"]
+
+griff=[{"name": student, "house": "Griffindor"} for student in students]
+```
+```
+student=["Hermoine", "Harry", "Ron"]
+griff={student: "Griffindor" for student in students}
+```
+## enumerate
+```
+student=["Hermoine", "Harry", "Ron"]
+
+for i, student in enumerate(students):
+    print (i+ 1, student) # 1 Hermoine  2 Harry 3 Ron  
+```
+## yield generators
+* to return data bit by bit instead of one heap, keeping the programm from beeing killed due to memory issues
+* uses yield instead of return in functions
+* yield returns a iterator
