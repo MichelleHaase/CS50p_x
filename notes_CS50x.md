@@ -339,5 +339,134 @@ int main(int argc, string argv[]) #argc argument count argv argument vector
 }
 ```
 * echo $? shows exit status from the last command -- Windows??
-## encription
-* cipher - alogrithm to encript plaintext with a key
+
+# CS50x Lecture 3 Algorithms
+
+* binary search - divide and conquer, always half, like the phonebook example (only possible if sorted)
+* linear search going in a line like from left to right
+### Big O notation
+* Big O Omega and Theta are asymptomatic Notations
+* Big O notation always describes how log a Algorithm takes in the worst case
+* in a graph linear search would be time n since in the worst case you would need to go thru all of the data
+  taking every second data point would be n/2
+  and binary search - halfing the data points each time and check for direction - would be log2n
+* in CS this is shown in the order of a time complexity 
+* * they are declared more broadly where n and n/2 would be in the order of n -> O(n)
+* * and log2n would be in ther oder of log n -> O(log n)
+* * common ones are 
+* O(n^2), quadratic time
+* O(n log n), - n log n
+* O(n) - linear Time, 
+* O(log n), - logarithmic time
+* O(1)- constant Time[doesn't necessarily 1 step just a constant number independent of n]
+
+### Omega notation
+* describes the time complexity in the best case
+* same notation as Big O: Ω(n^2); Ω(n log n); Ω(n); Ω(log n); Ω(1)
+* so linear search would be O(n) and Ω(1)
+* binary would be O(log n) and Ω(1)
+
+### Theta notation
+* describes Big O and Ω beeing the same for a Alogrithm like counting linear, to get to end you always have to count n times
+* Θ(n^2); ΘΩ(n log n); Θ(n); Θ(log n); Θ(1)
+## searching
+linear search
+```
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int numbers[] = {20,5,48,396,2,154,52,50};
+
+    int n = get_int("Number: ");
+    for (int i = 0; i < 8; i++)
+    {
+        if (numbers[i] == n)
+        {
+            printf("Found\n");
+            return 0;
+        }
+    }
+    printf("not found\n");
+    return 1;
+}
+```
+* doing this for strings would require strcmp from string.h
+## creating oown data structure
+```
+typedef struct
+{
+    string name;
+    string number;
+}
+person; //creates a Datatype person where each person has number nad a name
+
+int main(void)
+{
+    person people[3];
+    people[0].name = "Carter";
+    people[0].number = "0123";
+    - forloop, name= input
+    if (strcmp(people[i].name, name) == 0)
+
+}
+```
+## sorting
+* selection sort - find smallest number swap it to the beginning and go again
+* * (n-1) + (n-2) + (n-3)...+1 == n(n-1)/2 so its circa O(n^2) and Ω(n^2)
+* bubble sort - if the current number is smaller that the next, swap them, if there are no swaps in one run, quit
+* * (n-1) x (n-1) == O(n^2) Ω(n) - since if all is sorted the algorith exits
+
+## recursion
+* recursion is a description for a function that calls itself
+```
+#include <cs50.h>
+#include <stdio.h>
+
+void draw(int n);
+void draw2(int n);
+
+int main(void)
+{
+    int height = get_int("");
+    draw(height);
+    draw2(height);
+}
+
+void draw(int n)
+{
+    for (int i = 0; i < n ; i++)
+    {
+        for (int j = 0; j < i+1; j++)
+        {
+            printf("#");
+        }
+        printf("\n");
+    }
+}
+
+void draw2(int n)
+{
+    // if no more rows needed n=0 exit draw
+    if (n<= 0)
+    {
+        return;
+    }
+    //print pyramid of hight n-1
+    draw2(n-1);
+    // print one more row with one less block each time
+    for (int i = 0; i < n; i++)
+    {
+        printf("#");
+    }
+    printf("\n");
+}
+
+```
+## merge sort
+* sort left half of numbers the right half then merge them, if there is only one number quit
+* merge means going thru both lists comparing the first entry and taking the smallest one to a new array
+* sorting one half means recursivly calling merge sort till only one number is on each side then merge there is memory needed for each halfing and sorting
+* generally if you want to solve something quicker you need more space and vice versa
+* O(n log n) Ω(n log n)
