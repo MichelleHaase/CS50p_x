@@ -12,7 +12,8 @@
 * * * Void is type not a Datatype for empty return Values parameters etc
 * for strings ""    for chars ''
 * modulus %
-* logical OR || ; logical AND &&; logical NOT !
+* logical OR || ; logical AND &&; logical NOT !; 
+* strings can't be compared with == need function strmp(string_1, string_2) == 0
 * increment ++ decrement --
 *  += ; -= ; *= ; /= are called syntactic sugar
 *  bool 1 byte; int 4 bytes; long 8 bytes; float 4 bytes; double 8 bytes; char 1 byte
@@ -126,7 +127,7 @@ int main(void)
 }
 ```
 ## writing functions
-* return_Value function_Name(Input)
+* return_type  name(argument-list)
 * when calling a function it either must be above the call or the declaration line (prototype)
   must be copied above the call
 ```{c}
@@ -169,6 +170,7 @@ void Meow(int n)
 }
 ```
 * Scope: context in which Vars exist
+* * Vars declared globally can be accessed and changed by any function even if they dont return a value
 * constant vars "const int Var", they are read only vars that can not be changed once declared
 * do while for while with at least one
 
@@ -223,6 +225,10 @@ compiling as used today consists of 4 steps
 * CS50 cloud version of VSCode also has a Debugger "debug50 ./Filename" a breakpoint must be 
   set (red dot right beside the line number )
 ## Arrays
+* type name[size];
+* type name[] = {1, 2, 3} // sets size to number of inputs
+* you cant assign one array to another, loop over each element instead
+* arrays are not passed by Value(copied) like other vars, they are passed by reference so a function call changes the actual array without a return value
 ```{c}
 int scores[3];
 scores[0] = 72;
@@ -246,6 +252,7 @@ for (int i = 0; i < N; i++)
 ```
 #include <sc50.h>
 #include <stdio.h>
+#include <string.h>
 
 int main(void)
 {
@@ -257,6 +264,26 @@ int main(void)
         sequence[i] = sequence[i-1] * 2;
     }
     
+}
+```
+```
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    string phrase = get_string("");
+    for (int i = 0, lenght = strlen(phrase); i < lenght - 1; i++) // lenghtb -1 since we dont want to check the last letter aginst a random memory space
+    {   // assuming the input is all uppercase
+        if (phrase[i]> phrase[i + 1])
+        {
+            printf("Not in alphabetical order\n");
+            return 0;
+        }
+    }
+    printf("Alphabetical order\n");
+    return 0;
 }
 ```
 ## command line arguments
@@ -279,6 +306,22 @@ int main(int argc, string argv[]) #argc argument count argv argument vector
     }
 
 ```
+```
+#include <cs50.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, string argv[])
+{
+    if (argc != 2)
+    {
+        printf("Usage: filename and Argument needed") //catches the error if no arg is given
+        return 1
+    }
+    int height = atoi(argv[1]); // casts string as int
+}
+```
+
 ## exit status
 ```
 #include <cs50.h>
