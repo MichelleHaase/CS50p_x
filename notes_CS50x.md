@@ -172,6 +172,7 @@ void Meow(int n)
 * Scope: context in which Vars exist
 * * Vars declared globally can be accessed and changed by any function even if they dont return a value
 * constant vars "const int Var", they are read only vars that can not be changed once declared
+* global constants can also be declared as "#define Varname Value", eg "#define MAX 9" no assignment operator needed
 * do while for while with at least one
 
 ```{c}
