@@ -3,7 +3,7 @@
 * Vars need to be declared
 * declare " int number;"; assignment "number = 17;"; initialisation "int num = 12;"
 * semicolons on the line end
-* %s as placeholder for content of Var (%s= string, %i=int, %f=float, %li=long, %c=char)
+* %s as placeholder for content of Var (%s= string, %i=int, %f=float, %li=long, %c=char, %p=pointer)
 * * if a %i is used for a char or str[] the ACSII number gets printed and vice versa
 * make Filename (without filetype ending) to build
 * ./Filename (without filetype ending)  to run
@@ -472,6 +472,145 @@ void draw2(int n)
         printf("#");
     }
     printf("\n");
+}
+
+```
+# CS50x Lecture 4 Memory
+## Hexadecimal
+* 16 chars 0123456789ABCDEF
+* 0-9 == 00-09; 10-15 == 0A-0F; 16-25 == 10-19 20 == 1A ... 255 == FF
+* by convention prefixed by 0x as indicator for a Hexadecimal number
+  
+## Pointers
+* where information is located in Memory can be queried with &
+* with the "*"  a var is declared as a pointer that points to ie an ints location
+* using "*" outside of declaration means to go to the saved address
+
+```
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int n = 50;
+    printf("%p\n", &n); // prints the Memory location in Hex
+
+    int *p = &n; // creates a pointer var "p" with the Memory address of n
+    printf("%p\n", p); // prints the in p saved location of n 
+    printf("%p\n", *p); // prints the Value of the in p saved address from n
+}
+```
+* vars with strings as implemented by CS50, are usually  pointers to first letter of the string 
+* * the \0 NULL char that's on the end of the strings treminates the char array
+* * the compilker assumes that a char* pointer has continues information till the \0
+
+```
+string text = "LaLilu";
+==
+char* text = "LaLilu";
+```
+
+* thats also why compared strings with == doesn't work since the addresses are not equal
+* pointer can be passed into functions so that functions can change Values outside of their Scope by changing the pointers
+  this happens by passing by reference eg "void function_name(int* i, int* g)" the call would be function_name(&a, &b)
+### pointer arithmetics
+* math on pointers
+```
+char* s = "HI!";
+
+printf("%c", s[0]);
+printf("%c", s[1]);
+printf("%c", s[2]);
+==
+printf("%c", *s);
+printf("%c", (*s + 1));
+printf("%c", (*s + 2));
+```
+
+## malloc and free
+* in <stdlib.h>
+
+```
+int main(void)
+{
+    char* s = hi
+    char* t = s;
+    t[0]= toupper(t[0]);
+
+    printf("%s\n", s);
+    printf("%s\n", t);
+    // both print statements print out Hi since they point to the same changed Char
+}
+
+int main(void)
+{
+    char* s = hi
+    char* t = malloc(strlen(s) + 1); // allocates memory to the array; plus 1 for \0
+    if (t == NULL)
+    {
+        return 1; // returns error if the computer runs out of space
+    }
+
+    strcpy(t,s); // copies everyting from s into t; from <string.h>
+    t[0]= toupper(t[0]);
+
+    printf("%s\n", s);
+    printf("%s\n", t); // now only t has the upper H
+    free(t); frees the locked Memory after t is not used anymore
+    return 0;
+}
+```
+## valgrind
+* catches mistakes in memory allocation that don't create errors
+* USE: valgrind ./examplefile
+* it catches stuff like overwriting values outside of arrays and not using free
+
+## garbage Values
+* values still stuck after memory gets allocvated but doesnt get values
+* overwriting a not allocated location eg with *y = 13 can overwrite a RANDOM Value ANYWHERE
+
+## overflow
+* buffer overflow (buffer beeing a reserved space of memory); crqashes processes because of the missing memory to continue
+** stack overflow
+** heap overflow
+## File I/O
+```
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    fopen("PATH.csv", "a"); // a r w
+    char* name= get_string("Name: ");
+    char* number = get_string("Number: ");
+    fprintf(file, "%s,%s\n" , name, number)
+}
+```
+```
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+
+typedef unit8_t BYTE; //defines a byte sized datatype called BYTE
+
+int main(int argc, char* argv[])
+{
+    FILE* sorce = fopen(argv[1], "rb"); // read binary Data
+    FILE* destination = fopen(argv[2], "wb"); // write Binary Data
+
+    BYTE b; // creating a byte sized empty Var called b
+
+    while (fread(&b, sizeof(b), 1, sorce) !=0)
+    // fread reads a chunk of information into the location of b(&b) that is the size
+    // of b 1 at a time from the sorcefile, while there is data to read in.
+    {
+        fwrite(&b, sizeof(b), 1, destination);
+        // fwrite writes what's stored at location of b(&b) in b sized chunkd 1 at a time
+        // to the destination file
+    }
+    fclose(sorce);
+    fclose(destination);
 }
 
 ```
