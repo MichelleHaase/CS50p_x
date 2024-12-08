@@ -370,8 +370,29 @@ int main(int argc, string argv[]) #argc argument count argv argument vector
 ### Theta notation
 * describes Big O and Ω beeing the same for a Alogrithm like counting linear, to get to end you always have to count n times
 * Θ(n^2); ΘΩ(n log n); Θ(n); Θ(log n); Θ(1)
+
+## creating oown data structure
+```
+typedef struct
+{
+    string name;
+    string number;
+}
+person; //creates a Datatype person where each person has number nad a name(members)
+
+int main(void)
+{
+    person people[3];
+    people[0].name = "Carter";
+    people[0].number = "0123";
+    - forloop, name= input
+    if (strcmp(people[i].name, name) == 0)
+
+}
+```
+
 ## searching
-linear search
+### linear search
 ```
 #include <cs50.h>
 #include <stdio.h>
@@ -394,25 +415,14 @@ int main(void)
 }
 ```
 * doing this for strings would require strcmp from string.h
-## creating oown data structure
-```
-typedef struct
-{
-    string name;
-    string number;
-}
-person; //creates a Datatype person where each person has number nad a name
 
-int main(void)
-{
-    person people[3];
-    people[0].name = "Carter";
-    people[0].number = "0123";
-    - forloop, name= input
-    if (strcmp(people[i].name, name) == 0)
-
-}
-```
+### merge sort
+* sort left half of numbers the right half then merge them, if there is only one number quit
+* merge means going thru both lists comparing the first entry and taking the smallest one to a new array
+* sorting one half means recursivly calling merge sort till only one number is on each side then merge there is memory needed for each halfing and sorting
+* generally if you want to solve something quicker you need more space and vice versa
+* O(n log n) Ω(n log n)
+  
 ## sorting
 * selection sort - find smallest number swap it to the beginning and go again
 * * (n-1) + (n-2) + (n-3)...+1 == n(n-1)/2 so its circa O(n^2) and Ω(n^2)
@@ -465,9 +475,3 @@ void draw2(int n)
 }
 
 ```
-## merge sort
-* sort left half of numbers the right half then merge them, if there is only one number quit
-* merge means going thru both lists comparing the first entry and taking the smallest one to a new array
-* sorting one half means recursivly calling merge sort till only one number is on each side then merge there is memory needed for each halfing and sorting
-* generally if you want to solve something quicker you need more space and vice versa
-* O(n log n) Ω(n log n)
