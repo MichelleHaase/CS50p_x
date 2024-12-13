@@ -480,11 +480,18 @@ void draw2(int n)
 * 16 chars 0123456789ABCDEF
 * 0-9 == 00-09; 10-15 == 0A-0F; 16-25 == 10-19 20 == 1A ... 255 == FF
 * by convention prefixed by 0x as indicator for a Hexadecimal number
+* to check if a byte partly matches a conditional for Hex
+* *  (Array[index] & 0xf0) == 0xe0 - checks for the inforamtion in Array at index for the first 
+      4 bits if they match "e" nulling the later 4 bits
   
 ## Pointers
 * where information is located in Memory can be queried with &
 * with the "*"  a var is declared as a pointer that points to ie an ints location
 * using "*" outside of declaration means to go to the saved address
+* if the pointer is just declared not initialized it should be set to NULL so it cant accidentally access random values(old addresses) 
+* the * at initilization is part of the Datatype and part of the pointername 
+  so int* a, b, c; creates a pointer to an int "a"  and two int vars "b" and "c"
+  to create 3 pointers: int* a, *b, *c;
 
 ```
 #include <cs50.h>
@@ -513,6 +520,27 @@ char* text = "LaLilu";
 * thats also why compared strings with == doesn't work since the addresses are not equal
 * pointer can be passed into functions so that functions can change Values outside of their Scope by changing the pointers
   this happens by passing by reference eg "void function_name(int* i, int* g)" the call would be function_name(&a, &b)
+
+```
+void swap(int* a, int* b);
+// checking the first 4 bytes for header of PDF or jpg
+int main(int argc, char* argv[])
+{
+    int a = 5;
+    int b = 6;
+    swap(&a, &b);
+    printf("a: %i\nb: %i\n", a, b);
+}
+
+void swap(int* a, int* b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+```
+* accessing a the location where a pointer points to is called to dereference a pointer
+* dereferencing a NULL pointer -> segmentation fault
 ### pointer arithmetics
 * math on pointers
 ```
@@ -614,3 +642,18 @@ int main(int argc, char* argv[])
 }
 
 ```
+int main(int argc, char* argv[])
+{
+    char* filename = argv[1];
+    FILE* infile = fopen(filename, "r");
+    unit8_t buffer[4];
+    fread(buffer, 1, 4, infile);
+
+    for (inti = 0; i<4; i++)
+    {
+        printf("%i\n", buffer[i]);
+    }
+    fclose(f);
+}
+```
+# CS50x Lecture 5 Datastructures
