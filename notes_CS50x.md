@@ -642,6 +642,7 @@ int main(int argc, char* argv[])
 }
 
 ```
+```
 int main(int argc, char* argv[])
 {
     char* filename = argv[1];
@@ -657,3 +658,8 @@ int main(int argc, char* argv[])
 }
 ```
 # CS50x Lecture 5 Datastructures
+## abstract Datastructures
+### Queues
+* FIFO - First in, first out
+* enqueuing means to form a queue
+* dequeuing means to resolve the queue in order
