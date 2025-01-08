@@ -657,9 +657,218 @@ int main(int argc, char* argv[])
     fclose(f);
 }
 ```
-# CS50x Lecture 5 Datastructures
-## abstract Datastructures
+ # CS50x Lecture 5 Datastructures
+## abstract Data types
+* a data type is a classification that defines the type of Data and what operations can be performed on it
+* three main types
+* * primitive eg int char
+* * composite like arrays and classes
+* * Abstract, define the operations and behavior of the data not the low level implementation
+* * * eg stacks and ques have very specific operations like pop but they can be implemented with an Array or a linked list or similar
 ### Queues
 * FIFO - First in, first out
-* enqueuing means to form a queue
-* dequeuing means to resolve the queue in order
+* can be implemented with an Array as a data structure
+* *enqueuing* means to form a queue
+* *dequeuing* means to resolve the queue in order
+```
+const in CAP = 50;
+
+typedef struct
+{
+    person people[CAP];
+    int size;
+} queue;
+```
+### Stacks
+* LIFO - Last in First out
+* an item is *pushed* onto a stack
+* and it's *poped* off 
+* a stack can be implemented just like a queue the differences come the pop and push functions
+  
+### Linked List
+* has its items in pairs, randomly placed in memory each item has two memory "slots" one for the item one for the pointer to the next node in the List, the last one has NULL instead of a pointer
+
+#### Nodes
+```
+typedef struct
+{
+    int number;
+    struct node * next;
+} node;
+// doesnt work since the Node struct is named on line 5 and called on line 4
+
+typedef struct node // names the datatype struct node
+{
+    int number;
+    struct node * next;
+} node; // shortens the datatype name to node
+```
+* linked lists are easiest to code in prepending nodes
+* this reveres the order of the nodes
+* searching a number wold be O(n) and prepending it self is constant time O(1)
+```
+#include <cs50.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int number;
+    struct node *next;
+}
+node;
+
+int main(int argc, char *argv[])
+{
+    // Memory for numbers
+    node *list = NULL;
+
+    // For each command-line argument
+    for (int i = 1; i < argc; i++)
+    {
+        // Convert argument to int
+        int number = atoi(argv[i]);
+
+        // Allocate node for number
+        node *n = malloc(sizeof(node));
+        if (n == NULL)
+        {
+            return 1;
+        }
+        n->number = number; // (*n).number == n->number
+        n->next = NULL;
+
+        // Prepend node to list
+        n->next = list;
+        list = n;
+    }
+
+    // Print numbers
+    node *ptr = list;
+    while (ptr != NULL)
+    {
+        printf("%i\n", ptr->number);
+        ptr = ptr->next;
+    }
+
+    // Free memory
+    ptr = list;
+    while (ptr != NULL)
+    {
+        node *next = ptr->next;
+        free(ptr);
+        ptr = next;
+    }
+}
+```
+* a linked List can also be created by appending the nodes
+* appending the list is O(n) since we need to iterate over it to find the ending
+
+```
+... 
+
+        n->number = get_int("Number: ");
+        n->next = NULL;
+
+        // If list is empty
+        if (list == NULL)
+        {
+            // This node is the whole list
+            list = n;
+        }
+
+        // If list has numbers already
+        else
+        {
+            // Iterate over nodes in list
+            for (node *ptr = list; ptr != NULL; ptr = ptr->next)
+            {
+                // If at end of list
+                if (ptr->next == NULL)
+                {
+                    // Append node
+                    ptr->next = n;
+                    break;
+                }
+            }
+        }
+            // Free memory
+    node *ptr = list;
+    while (ptr != NULL)
+    {
+        node *next = ptr->next;
+        free(ptr);
+        ptr = next;
+    }
+    return 0;
+```
+SORTED VERSION
+```
+...
+
+// If list is empty
+        if (list == NULL)
+        {
+            list = n;
+        }
+
+        // If number belongs at beginning of list
+        else if (n->number < list->number)
+        {
+            n->next = list;
+            list = n; 
+        }
+
+        // If number belongs later in list
+        else
+        {
+            // Iterate over nodes in list
+            for (node *ptr = list; ptr != NULL; ptr = ptr->next)
+            {
+                // If at end of list
+                if (ptr->next == NULL)
+                {
+                    // Append node
+                    ptr->next = n;
+                    break;
+                }
+
+                // If in middle of list
+                if (n->number < ptr->next->number)
+                {
+                    n->next = ptr->next;
+                    ptr->next = n;
+                    break;
+                }
+            }
+        }
+...
+```
+### Trees
+#### binary search trees
+* each node has two pointers pointing to the left and right child 
+* a node with pointers set to NUll (no level underneath) is a Leaf
+* the first Node is the root 
+* nodes above the level of their children are parents
+* its a binary search tree because binary seach can be preformed on ity
+* * every left child is smaller than the root every right child is bigger or equal
+
+```
+typedef struct node
+{
+    int number;
+    struct node* left;
+    struct node* right;
+} node;
+```
+* if a search tree isn't balanced it can devolve into a linked list ie if the root is the smallest value and each child is bigger than its parent its a linked list, which means complexity goes from O(log n) to O(n)(linear time).
+* trees can be imported balancing is normally already implemented.
+
+### Hashing
+* to bucketise means to put data in certain spots based on some critera eg instead of sorting a deck of cards from scratch sorting it in 4 buckets (one for each color) first. this methode is used to go from an infinte domain to finite range of values
+#### Hash table
+
+
+#### tries
+* trees of arrays
+* true constant time
