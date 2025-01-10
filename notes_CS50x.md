@@ -866,9 +866,16 @@ typedef struct node
 
 ### Hashing
 * to bucketise means to put data in certain spots based on some critera eg instead of sorting a deck of cards from scratch sorting it in 4 buckets (one for each color) first. this methode is used to go from an infinte domain to finite range of values
+* a Hash function is the algorithm that bucketises the data into eg a Hash table
+* ideally the Hash function sorts the data in a way that every value has its own key
+* Collisions occur when two datapoints are identified by the same key eg sorting name by first letter and having more than one that starts with "A", then inside the a-bucket searching becomes linear O(n) again
+* without Collisions creation and searching are in constant time O(1)
+
 #### Hash table
+* a Hash table technically is an array of pointers to first nodes of, if there is more than one value per key, a linked list
 
-
-#### tries
+#### Tries
 * trees of arrays
-* true constant time
+* always true constant time O(1), take a big amount Memory
+* an example would be storing names in a tree of arrays where each array has 26 spaces allocated for each potential letter and the tree has as many levels as the longest name letters. this would always allow search in constant time O(1) but would take a big amount of memory
+  
