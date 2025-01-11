@@ -879,3 +879,15 @@ typedef struct node
 * always true constant time O(1), take a big amount Memory
 * an example would be storing names in a tree of arrays where each array has 26 spaces allocated for each potential letter and the tree has as many levels as the longest name letters. this would always allow search in constant time O(1) but would take a big amount of memory
   
+# CS50x Lecture 6 Python
+* Basics not noted since they are in CS50p notes
+
+ ```
+for n in names:
+    if name == n:
+        Print("found")
+        break
+else:
+    print("not found")
+ ```
+ * if the Loop is never broken the else statement is invoked 
