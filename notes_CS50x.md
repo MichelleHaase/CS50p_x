@@ -891,3 +891,74 @@ else:
     print("not found")
  ```
  * if the Loop is never broken the else statement is invoked 
+
+# CS50x Lecture 7 SQL
+* SQL Structured Query Language
+
+## flat-file Database
+* consists of just one table in a simple text format like csv
+
+```
+import csv
+
+# Open CSV file
+with open("favorites.csv", "r") as file:
+
+    # Create reader
+    reader = csv.reader(file)
+
+    # Skip header row
+    next(reader)
+
+    # Iterate over CSV file, printing each favorite
+    for row in reader:
+        print(row[1])
+
+```
+## relational Databases
+* stores more complex data and allows to relate datapoints to each other
+
+## sqLite3
+* part of the python standart Lib(preinstalled)
+* Import sqlite3
+  ```
+  in Terminal
+
+  $ sqlite3 Database_name.db - creates and/ or activates db
+  sqlite> .mode csv
+  sqlite> .import filename table_name - creates table from file in active db
+  sqlite> .schema -shows the schema, all existing executed CREATE commands
+  ```
+* CREATE, INSERT
+* SELECT
+* UPDATE
+* DELETE, DROP
+
+## B-tree
+* data structure created by the INDEX keyword that creates a wide tree in memory that speeds up queries immensely 
+
+## race conditions
+* an error when a Value gets updated to fast several times, that the most current update process doesn't have the up-to-date Value yet since it's still being updated - leads to incorrect/ insufficient updating/ conflicts
+* fix are BEGIN TRANSACTION which executes a bulk a of queries for the same variable, they are either all executed or not at all. this "blocks" the variable for new queries till the first bulk is completely executed and COMMITed.
+
+## SQL injection attacks 
+* using eg login forms and giving characters as input that SQL interpretes as for example wildcards or that comments out a part of a condition that checks for the password
+* that's why f-strings shouldn't be used in SQL because its easier to inject for example -- that creates comments that with placeholders.
+```
+rows = db.execute(f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'")
+...
+
+translates to
+
+username = malan@harvard.edu'--
+
+rows = db.execute(f"SELECT * FROM users WHERE username = 'malan@harvard.edu'--' AND password = '{password}'") 
+which comments out the AND password condition
+...
+
+better
+
+rows = db.execute("SELECT * FROM users WHERE username = ? AND password = ?", username, password)
+...
+```
+
