@@ -19,7 +19,7 @@
 *  bool 1 byte; int 4 bytes; long 8 bytes; float 4 bytes; double 8 bytes; char 1 byte
 
 
-```{c}
+```c
 #include <stdio.h>
 #include <cs50.h>
 
@@ -31,7 +31,7 @@ int main(void)
 ```
 ## conditional statements
 ### if else
-```{c}
+```c
 #include <stdio.h>
 #include <cs50.h>
 
@@ -53,7 +53,7 @@ int main(void)
 ```
 ### switch statement
 * without the "break" all cases underneath will be executed too
-```{c}
+```c
 int x = Input;
 switch(x)
 {
@@ -75,7 +75,7 @@ switch(x)
 ```
 ### ternary operator
 
-```{c}
+```c
 int x = (boolean) ? 5 : 6;
 
 ==
@@ -93,7 +93,7 @@ else
 ## Loops
 ### while Loops
 
-```{c}
+```c
 #include <stdio.h>
 
 int main(void)
@@ -115,7 +115,7 @@ while(true)
 
 ### for Loops
 syntax inside the for loop for (declare var; condition; action)
-```{c}
+```c
 #include <stdio.h>
 
 int main(void)
@@ -130,7 +130,7 @@ int main(void)
 * return_type  name(argument-list)
 * when calling a function it either must be above the call or the declaration line (prototype)
   must be copied above the call
-```{c}
+```c
 #include <stdio.h>
 #include <cs50.h>
 
@@ -149,7 +149,7 @@ void meow(void)
     printf("Meow\n");
 }
 ```
-```{c}
+```c
 #include <stdio.h>
 #include <cs50.h>
 
@@ -175,7 +175,7 @@ void Meow(int n)
 * global constants can also be declared as "#define Varname Value", eg "#define MAX 9" no assignment operator needed
 * do while for while with at least one
 
-```{c}
+```c
 int main(void)
 {
     // makes single line comments
@@ -194,7 +194,7 @@ int main(void)
   have only positive values so an "unsigned int" uses 2^32 where in a normal int half of 
   that would be reserved for negative numbers. "unsigned" is a qualifier.
 
-```{c}
+```c
 #include <cs50.h>
 #include <stdio.h>
 
@@ -230,7 +230,7 @@ compiling as used today consists of 4 steps
 * type name[] = {1, 2, 3} // sets size to number of inputs
 * you cant assign one array to another, loop over each element instead
 * arrays are not passed by Value(copied) like other vars, they are passed by reference so a function call changes the actual array without a return value
-```{c}
+```c
 int scores[3];
 scores[0] = 72;
 scores[1] = 73;
@@ -250,7 +250,7 @@ for (int i = 0; i < N; i++)
 * arrays are structures wherein several Values can be saved and accessed via indexes
 * arrays need a set number of entries at declaration (for Memory allocation) except strings see above 
 
-```
+```c
 #include <sc50.h>
 #include <stdio.h>
 #include <string.h>
@@ -267,7 +267,7 @@ int main(void)
     
 }
 ```
-```
+```c
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
@@ -288,7 +288,7 @@ int main(void)
 }
 ```
 ## command line arguments
-```
+```c
 #include <cs50.h>
 #include <studio.h>
 
@@ -307,7 +307,7 @@ int main(int argc, string argv[]) #argc argument count argv argument vector
     }
 
 ```
-```
+```c
 #include <cs50.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -324,7 +324,7 @@ int main(int argc, string argv[])
 ```
 
 ## exit status
-```
+```c
 #include <cs50.h>
 #include <studio.h>
 
@@ -368,11 +368,11 @@ int main(int argc, string argv[]) #argc argument count argv argument vector
 * binary would be O(log n) and Ω(1)
 
 ### Theta notation
-* describes Big O and Ω beeing the same for a Alogrithm like counting linear, to get to end you always have to count n times
+* describes Big O and Ω being the same for a Algorithm like counting linear, to get to end you always have to count n times
 * Θ(n^2); ΘΩ(n log n); Θ(n); Θ(log n); Θ(1)
 
-## creating oown data structure
-```
+## creating own data structure
+```c
 typedef struct
 {
     string name;
@@ -393,7 +393,7 @@ int main(void)
 
 ## searching
 ### linear search
-```
+```c
 #include <cs50.h>
 #include <stdio.h>
 
@@ -431,7 +431,7 @@ int main(void)
 
 ## recursion
 * recursion is a description for a function that calls itself
-```
+```c
 #include <cs50.h>
 #include <stdio.h>
 
@@ -493,7 +493,7 @@ void draw2(int n)
   so int* a, b, c; creates a pointer to an int "a"  and two int vars "b" and "c"
   to create 3 pointers: int* a, *b, *c;
 
-```
+```c
 #include <cs50.h>
 #include <stdio.h>
 
@@ -511,7 +511,7 @@ int main(void)
 * * the \0 NULL char that's on the end of the strings treminates the char array
 * * the compilker assumes that a char* pointer has continues information till the \0
 
-```
+```c
 string text = "LaLilu";
 ==
 char* text = "LaLilu";
@@ -521,7 +521,7 @@ char* text = "LaLilu";
 * pointer can be passed into functions so that functions can change Values outside of their Scope by changing the pointers
   this happens by passing by reference eg "void function_name(int* i, int* g)" the call would be function_name(&a, &b)
 
-```
+```c
 void swap(int* a, int* b);
 // checking the first 4 bytes for header of PDF or jpg
 int main(int argc, char* argv[])
@@ -543,7 +543,7 @@ void swap(int* a, int* b)
 * dereferencing a NULL pointer -> segmentation fault
 ### pointer arithmetics
 * math on pointers
-```
+```c
 char* s = "HI!";
 
 printf("%c", s[0]);
@@ -558,7 +558,7 @@ printf("%c", (*s + 2));
 ## malloc and free
 * in <stdlib.h>
 
-```
+```c
 int main(void)
 {
     char* s = hi
@@ -602,7 +602,7 @@ int main(void)
 ** stack overflow
 ** heap overflow
 ## File I/O
-```
+```c
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
@@ -615,7 +615,7 @@ int main(void)
     fprintf(file, "%s,%s\n" , name, number)
 }
 ```
-```
+```c
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
@@ -642,7 +642,7 @@ int main(int argc, char* argv[])
 }
 
 ```
-```
+```c
 int main(int argc, char* argv[])
 {
     char* filename = argv[1];
@@ -670,7 +670,7 @@ int main(int argc, char* argv[])
 * can be implemented with an Array as a data structure
 * *enqueuing* means to form a queue
 * *dequeuing* means to resolve the queue in order
-```
+```c
 const in CAP = 50;
 
 typedef struct
@@ -689,7 +689,7 @@ typedef struct
 * has its items in pairs, randomly placed in memory each item has two memory "slots" one for the item one for the pointer to the next node in the List, the last one has NULL instead of a pointer
 
 #### Nodes
-```
+```c
 typedef struct
 {
     int number;
@@ -706,7 +706,7 @@ typedef struct node // names the datatype struct node
 * linked lists are easiest to code in prepending nodes
 * this reveres the order of the nodes
 * searching a number wold be O(n) and prepending it self is constant time O(1)
-```
+```c
 #include <cs50.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -764,7 +764,7 @@ int main(int argc, char *argv[])
 * a linked List can also be created by appending the nodes
 * appending the list is O(n) since we need to iterate over it to find the ending
 
-```
+```c
 ... 
 
         n->number = get_int("Number: ");
@@ -803,7 +803,7 @@ int main(int argc, char *argv[])
     return 0;
 ```
 SORTED VERSION
-```
+```c
 ...
 
 // If list is empty
@@ -853,7 +853,7 @@ SORTED VERSION
 * its a binary search tree because binary seach can be preformed on ity
 * * every left child is smaller than the root every right child is bigger or equal
 
-```
+```c
 typedef struct node
 {
     int number;
@@ -882,7 +882,7 @@ typedef struct node
 # CS50x Lecture 6 Python
 * Basics not noted since they are in CS50p notes
 
- ```
+ ```c
 for n in names:
     if name == n:
         Print("found")
@@ -898,7 +898,7 @@ else:
 ## flat-file Database
 * consists of just one table in a simple text format like csv
 
-```
+```c
 import csv
 
 # Open CSV file
@@ -921,7 +921,7 @@ with open("favorites.csv", "r") as file:
 ## sqLite3
 * part of the python standart Lib(preinstalled)
 * Import sqlite3
-  ```
+  ```sql
   in Terminal
 
   $ sqlite3 Database_name.db - creates and/ or activates db
@@ -944,7 +944,7 @@ with open("favorites.csv", "r") as file:
 ## SQL injection attacks 
 * using eg login forms and giving characters as input that SQL interpretes as for example wildcards or that comments out a part of a condition that checks for the password
 * that's why f-strings shouldn't be used in SQL because its easier to inject for example -- that creates comments that with placeholders.
-```
+```sql
 rows = db.execute(f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'")
 ...
 
@@ -961,4 +961,54 @@ better
 rows = db.execute("SELECT * FROM users WHERE username = ? AND password = ?", username, password)
 ...
 ```
+# CS50x Lecture 8 HTML, CSS, JavaScript
+* routers are server that rout information from one place to another
+* DNS Domain Name Systems Server translates domain names(like google.com) into ip addresses it also holds an expiration date 
+  when this expires the ip has to be looked up again   
+  a fully qualified name is the Domain name and the hostname like www.google.com   
+  TLD Top Level Domain like .com used to define what kind of website it is   
+   .com - commercial .gov - government .org - organisations   
+   those can simply be bought nowadays and are no longer real idetifieres   
+   TLDs with two letters .us .uk .de are technically county specific but some countries monetise them   
+   good examples .ai -Anguilla .tv - Tuvalu .io - Britischen Territoriums im Indischen Ozean
+  
+## Protocols
+IP - internet protocol 
+* * ipv4 (ip version 4) #.#.#.# with 0-255 for each # (32 bit/ 4 byte)
+* * ipv6 mostly used in industry not in privat computers (128 bit/ 8 byte)
+* the Header contains sender and receiver Address and their corresponding Ports and other possible markers or potions
+* since sending bigger information is comlicayed data gets fragmented   
+    
+TCP/ IP
+* the TCP keeps track of the fragmented parts sequence numbers
+* 
 
+Ports
+* is a unique identifier for a specific internet service like mail, streaming etc
+* some ports are standardised like 80 for HTTP or 443 for HTTPS
+* can be added to the address like this #.#.#.#:80 
+
+DHCP
+* dynamic Host configuartion protocol
+* gives computer an ip when it boots up 
+
+HTTP / HTTPS
+* hypertext transfer protocol / Securtity
+* intercommunication between browser and server
+* uses eg GET or POST for requests   
+  GET / HTTP/2  // 2 version of HTTP  
+  Host: www.harvard.edu  
+  ...
+  response:  
+  HTTP/2 200  // 200 is the stauscode 200 means success 301 moved permanently 404 not found  
+  300 codes usually means some sort of redirection like 307 temorary redirect, 304 Not modified   
+  400 codes indicates User Error 401 Unauthorised, 418 I'm a teapot   
+  500 codes are Server errors 500 internal Server Error , 503 Service Unavailable   
+
+  Content-Type: text/html  
+  ...
+
+
+URL (not a protocol)
+* Uniform Resource Locator
+* it contains the fully qualified domain name, a trailing slash( often the rest of the path is hidden), protocol on how to handel the query like HTTPS
