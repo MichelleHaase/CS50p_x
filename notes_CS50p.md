@@ -11,15 +11,15 @@ whitespace)
 parameters like sep='' and end='' can be overwritten when using the function like
 
 
-```
+```python
 print("this is text", end='\t')
 ```
 the escape Character \ can be used to print Characters that would normally be interpreted as code eg
-```
+```python
 print("this is \"literally\" text")
 ```
 f-strings allow to see certain parts inside of "" as code
-```
+```python
 print(f"this is text and {Variable}")
 
 print(f"{Number:.2f}")--prints Var Number(float) with two positions after decimal point .
@@ -34,25 +34,25 @@ print("meow" * 3, end="") -- multiplies print statements eg printing it 3 times
 ## String methods
 ### strip()
 removes Whitespace from the beginning and the end of str
-```
-inputText = inputText.strip()
+```python
+inputText = input(Text).strip()
 ```
 ### capitalize ()
 capitalizes the first word of a str !!! British spelling doesn't work !!!
-```
-inputText = inputText.capitalize()
+```python
+inputText = input(Text).capitalize()
 ```
 ### title()
 Capitalises each word in the str
-```
-inputText = inputText.title()
+```python
+inputText = input(Text).title()
 ```
 
 ### split()
 splits str by separator if the result is saved in as many Vars as there are str pieces it's saved as str if there are more pieces that Vars error, if everything saved in one Var it's a list
 
-```
-inputText = inputText.split(" ")
+```python
+inputText = input(Text).split(" ")
 ```
 
 ## documentation
@@ -70,7 +70,7 @@ int() str() float()
 ## writing  functions
 def - define
 2nd example default output is hello world, with input in name ist hello {name}
-```
+```python
 def hello():
     print("hello")
 
@@ -96,7 +96,7 @@ function
 
 ## if elif else
 syntax :    
-```
+```python
 if conditionals:
     code
 elif conditional:
@@ -107,7 +107,7 @@ else:
 you can use parentheses but they're not necessary
 
 * or and 
-```
+```python
 if 90 <= Var and Var <= 100:
 elif 80 <= Var and Var < 90:
     ==
@@ -121,7 +121,7 @@ elif is essential here, since two if statements are not exclusive they both woul
 
 * math operators + - * / %(modulo)
 modulo syntax:if Var % 2 == 0 -> all even nums would be True
-```
+```python
 def is_even(n):
     if n % 2 == 0:
         return True
@@ -138,7 +138,7 @@ def is_even(n):
 ```
 * case match statement
 Syntax: 
-```
+```python
 match Var:
     case "one" | "three" | "four":      # | being a logical or
         print()
@@ -152,7 +152,7 @@ match Var:
 # CS50p Lecture 2 Loops
 ## while Loops
 
-```
+```python
 i=0
 while i < 3:
     print()
@@ -167,7 +167,7 @@ while True:
 iterates over list of items
 if the idx is only needed for the Loops and not used its 
 costum to name it _
-```
+```python
 for _ in range(3):
     print()
 
@@ -181,7 +181,7 @@ for i in range(len(List)):
 define absence of a Value with None
 
 
-```
+```python
 students =
 {
     "Key": "Value",
@@ -203,7 +203,7 @@ Dicts can be extended by students.update({new Key/ Value pairs})
 * Value Error eg giving the wrong Datatype to a function
 * Name Error often when using Var that's not defined
 
-```
+```python
 while True:
     try:
         x= int(input("What's x? "))
@@ -250,7 +250,7 @@ except ValueError:
 
 # CS50p Lecture 4 Libraries
 * modul/ Libraries has features and function made for reusability
-```
+```python
 import random
 
 coin= random.choice(["heads","tails"])
@@ -274,7 +274,7 @@ statistics.mean([100,90])
 ```
 sys.argv (stands for argument Vector) is var that automatically creates 
 a list out of all the inputs given
-```
+```python
 import sys
 
 print("Hello, my name is", sys.argv[1])
@@ -285,7 +285,7 @@ which leads to the output "Hello, my name is Michelle" at index 0 is
 if no argument is given a IndexError is arises because index 1 of 
 sys.arg is NA
 
-```
+```python
 import sys
 
 if len(sys.argv) < 2:
@@ -299,7 +299,7 @@ if the conditionals should be checked, exited when True but continued
 when false instead of having the rest of the code inside an else 
 statement sys.exit("exit message") can terminate the program early,
 it actually terminates the program not just ie a Loop like break
-```
+```python
 import sys
 
 if len(sys.argv) < 2:
@@ -310,7 +310,7 @@ elif len(sys.argv) > 2:
 print("Hello my name is", sys.argv[1])
 ```
 to for example printing out several Name Tags
-```
+```python
 import sys
 
 if len(sys.argv) < 2:
@@ -323,7 +323,7 @@ for arg in sys.argv[1:]:
 * API Application Program interface, "requests" Lib allows to make
   requests as if made by a Browser
 * JSON Javascript object notation files, text based 
-```
+```python
 import requests
 import json
 import sys
@@ -337,7 +337,7 @@ print(json.dumps(response.json(), indent=2))
 to iterate over the output Dict to ie to print all track names for a 
 artist
 
-```
+```python
 ...
 response= requests.get("https://itunes.apple.com/search?entity=song&limit=50&term=" + sys.argv[1])
 object1= response.json()
@@ -346,7 +346,7 @@ for results in object1["results"]:
     print(results["trackName"])
 ```
 ## writing own Modul
-```
+```python
 in File: test_Modul.py
 
 def main():
@@ -379,7 +379,7 @@ main can only be called if the Script is executed directly, because
  * format stuff to PEP8 conventions with black (pip install)
 
 example_file:
- ```{python}
+ ```python
 def main():
     x = int(input())
     print ("x squared is", square(x))
@@ -394,7 +394,7 @@ if __name__ == "__main__":
   * "assert" only throws errors when test fails --> AssertionError
  test_example_file:
 
- ```{python}
+ ```python
 from example_file import square
 
 def main():
@@ -437,7 +437,7 @@ if __name__ == "__main__":
 * for testing floats since rounding errors can be expected, "pytest.approx(expected_result)"
   "pytest.approx(expected_result, abs= 0.1)" abs defines the tolerance
    
-```
+```python
 import pytest
 
 from example_file import square
@@ -461,7 +461,7 @@ def test_string():
 ### function without return value can't be tested properly
 
 so example file
-```
+```python
 def main():
     name= input("Name? ")
     hello(name)
@@ -475,7 +475,7 @@ if __name__ "__main__":
 ```
 should look like this 
 
-```
+```python
 def main():
     name= input("Name? ")
     print(hello(name))
@@ -488,7 +488,7 @@ if __name__ == "__main__":
 
 ```
 and a test would look like
-```
+```python
 from testingstuff import hello
 
 
@@ -504,7 +504,7 @@ def test_default():
 * "a" - appending to the file, no line breaks included
 * "r" - reading a txt file (default)
 
-```
+```python
 file = open("names.txt", "a")
 file.write(f"{name\n"})
 file.close()
@@ -514,21 +514,21 @@ with open("names.txt", "a") as file:
 
 # omits file.close
 ```
-```
+```python
 with open("names.txt", "r") as file:
   for line in file:
       print(line.rstrip()) 
 # rstrip strips the extra \n one from the input one from print
 
 ```
-```
+```python
 names= []
 
 with open("names.txt") as file:
   for line in sorted(file):
       names.append(line.rstrip()) 
 ```
-```
+```python
 with open("names.csv") as file:
     for line in file:
         row = line.rstrip().split(",")
@@ -552,7 +552,7 @@ for student in sorted(students, key=lambda student: student["name"]):
 ```
 * lambda (anonyms) functions can be used when a function is only used once
 
-```
+```python
 import csv
 
 students = []
@@ -582,7 +582,7 @@ with open("students.csv", "a") as file:
     writer.writerow({"name": name, "home" : home})
 ```
 ### for binary files there are differnt Libraries eg Pillow
-```
+```python
 import sys
 
 from PIL import Image
@@ -601,7 +601,7 @@ images[0].save(
 # CS50p Lecture 7 Regex
 
 * if Var ie a var holding a string if Var evaluates to True if its not empty
-```
+```python
 if Var:
     print("yes")
 else:
@@ -629,7 +629,7 @@ else:
 * flags include re.IGNORECASE re.MULTILINE re.DOTALL
 * f strings can be used in Regex fr""
 * (?P<ExampleName>) - naming groups
-```
+```python
 import re
 
 email = input()
@@ -639,7 +639,7 @@ if re.search(r"^(\w|\.)+@(\w+\.)+.{2.3}$", email, re.IGNORECASE): # not a final 
 else:
     print("invalid")
 ```
-```
+```python
 import re
 
 name  = input.strip()
@@ -649,7 +649,7 @@ if matches := re.search(r"^(.+), *(.+)$", name):
 #    first = matches.group(2)
     name  = matches.group(2) + " " + matches.group(1)
 ```
-```
+```python
 import re
 
 url = input().strip()
@@ -678,7 +678,7 @@ url = input().strip()
 * by setting a input as None in the Initialization it becommes optional
     def __init__(self, name, house=None):
 * __str__
-```
+```python
 class Student:
     ...
 
@@ -694,7 +694,7 @@ def get_student():
     return student
     
 ```
-```
+```python
 class Student:
     def __init__(self, name, house):
         self.name = name
@@ -711,7 +711,7 @@ def get_student():
     student = Student(name, house)
     return student
 ```
-```
+```python
 class Student:
     def __init__(self, name, house):
         if not name:
@@ -734,7 +734,7 @@ def get_student():
     except ValueError:
         main()
 ```
-```
+```python
 class Student:
     def __init__(self, name, house, patronus):
         if not name:
@@ -786,7 +786,7 @@ main()
   keeping the name self.house in __init__ ensures that the setter with the error check is called
 * function insde of class -> methode
 
-```
+```python
 
 class Student:
     def __init__(self, name, house):
@@ -821,7 +821,7 @@ def get_student():
     
 main()
 ```
-```
+```python
 import random
 
 class Hat:
@@ -835,7 +835,7 @@ hat= Hat()
 hat.sort("Harry")
 ```
 *class methodes are defined with the decorator @classmethod
-```
+```python
 import random
 
 class Hat:
@@ -853,7 +853,7 @@ Hat.sort("Harry")
   its initialized by putting the superclass in the prototype of the subclass and callintg super().function_to_be_used(Var? to be used)
   class Professor(Wizard):
   
-```
+```python
 class Wizard:
     def __init__(self, name):
         if not name:
@@ -875,7 +875,7 @@ if __name__ == "__main__":
     main()
 ```
 * operator overloading, different functions for opperators based on Datatype
-```
+```python
 class Vault:
     def __init__(self, galleons=0, sickels=0, knuts=0): # all function in class have acsses to those vars
         self.galleons = galleons
@@ -913,7 +913,7 @@ TODO
 * changes the Scope of a Variable to global but keeps it changeable
 * you cant change a gloabal function inside a function only read it
 * 
-```
+```python
 balance = 0
 
 def main():
@@ -928,7 +928,7 @@ def withdraw(n):
     balance -= n
 ```
 * causes unbound Local error because the global Var balance cant be change inside of deposit
-```
+```python
 def main():
     balance = 0
     deposit(100)
@@ -942,7 +942,7 @@ def withdraw(n):
     balance -= n
 ```
 * causes unbound local Error because balance is only accessable in main
-```
+```python
 balance = 0
 
 def main():
@@ -960,7 +960,7 @@ def withdraw(n):
 ```
 * this makes it accessable and changeable
 * better change would be a class since all function in a class can access instance Vars
-```
+```python
 class Account:
     def __init__(self):
         self._balance = 0
@@ -991,7 +991,7 @@ def main():
 * excecute code with mypy filename
 * the modul is made to self check code not force types
 * "n: int" tells mypy the input in the function should be a int
-```
+```python
 def meow(n: int):
     for _ in range(n):
         print("meow")
@@ -1003,7 +1003,7 @@ number: int = input("Number: ")
 meow(number)
 ```
 output: error: Argument 1 to "meow" has incompatible type "str"; expected "int"  [arg-type]
-```
+```python
 def meow(n: int) -> None:
     for _ in range(n):
         print("meow")
@@ -1016,7 +1016,7 @@ print(meows)
 ## Docstrings
 * """comment """ are used for documentation of code
 * Docstrings can be used to create documentation (like a pdf) by using the markdown "restructured text"
-```
+```python
 def meow(n: int) -> str:
     """
     Meows n times.
@@ -1030,7 +1030,7 @@ def meow(n: int) -> str:
     return "meow\n" *n
 ```
 ## argparse
-```
+```python
 import argparse
 
 parser =argparse.ArgumentParser(description="Meow like a cat")
@@ -1043,7 +1043,7 @@ for _ in range(args.n):
 * allows for arguments to be entered (commandline) in random order copared to sys.argv
 * creating a argument like that allows to easy access documentatiopn with "python filename --help" (commandline)
   outpurt would be:
-```
+```bash
 usage: testingstuff.py [-h] [-n N]
 
 Meow like a cat
@@ -1055,7 +1055,7 @@ options:
 ## unpacking
 
 * when passing arguments to function you can automatically unpack them with a "*" double for dicts
-```
+```python
 def total(galleons, sickels, knuts)
 coins = [100,50,25]
 
@@ -1076,13 +1076,13 @@ def yell(*words)
       uppercased.append(word.upper())
   print(*uppercased) # THIS IS CS50
 ```
-```
+```python
 def f (*args, **kwargs) # allows for a undetermend amount of argumenmts an keyword arguments (max 255)
 ```
 
 ## map
 * maps a function to a sequence of Values
-```
+```python
 yell("This", "is", "CS50")
 
 def yell(*words)
@@ -1090,7 +1090,7 @@ def yell(*words)
   print(*uppercased) # THIS IS CS50
 ```
 ## List comprehension
-```
+```python
 yell("This", "is", "CS50")
 
 def yell(*words)
@@ -1106,7 +1106,7 @@ def yell(*words)
   print(*uppercased) # THIS CS50
 ```
 ## filter
-```
+```python
 ## imaganry list of dict of hogwarts student called "students"
 
 def sorted(s):
@@ -1118,7 +1118,7 @@ for griff in sorted(griffindors, key = lambda s; s ["name"]):
     print(griffindor["name"])
 ```
 ## Dictionary comprehension
-```
+```python
 student=["Hermoine", "Harry", "Ron"]
 
 griff=[]
@@ -1132,12 +1132,12 @@ student=["Hermoine", "Harry", "Ron"]
 
 griff=[{"name": student, "house": "Griffindor"} for student in students]
 ```
-```
+```python
 student=["Hermoine", "Harry", "Ron"]
 griff={student: "Griffindor" for student in students}
 ```
 ## enumerate
-```
+```python
 student=["Hermoine", "Harry", "Ron"]
 
 for i, student in enumerate(students):
