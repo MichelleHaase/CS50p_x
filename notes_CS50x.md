@@ -1007,8 +1007,282 @@ HTTP / HTTPS
 
   Content-Type: text/html  
   ...
-
+* testing output in Bash
+    curl -I http://www.harvard.edu/
+    * curl - Client URL
+    * -I only requests the headings not the full output
+    * needs the fully qualified name or the output will have a 300 code like permanently moved
 
 URL (not a protocol)
 * Uniform Resource Locator
 * it contains the fully qualified domain name, a trailing slash( often the rest of the path is hidden), protocol on how to handel the query like HTTPS
+
+## HTML
+* Hypertext Markup Language
+* text file 
+* http-server -starts a web server on port 8080
+* comments are created with \<!-- Comment -->
+```html
+<!DOCTYPE html> <!--document type declaration-->
+
+<html lang="en"> <!-- defines the beginning of an html element, defines the Language (title and body) -->
+    <head> // 
+        <title> <!-- open Tag for the title -->
+            hello, title
+        </title> <!-- close Tag for the title -->
+    </head>
+    <body>
+        hello, body
+    </body>
+</html>
+```
+creates a website that just says "hello, body" on the page and hello, title on the browser Tab
+* paragrph tag \<p> text \</p> has to be set after and before each paragraph or tyhere will be no empty lines between them
+* headings in the body can be set with \<h1>Header One\</h1> to h3 similar to # ## ### in Markdown 
+* can use " and ' similar as in python
+* lists ul - unordered list -> bullet points
+* li - List item
+* ol ordered list - numbered
+```html
+...
+    <body>
+        <ul>
+            <li>foo</li>
+            <li>bar</li>
+            <li>baz</li>
+        </ul>
+    <body>
+...
+```
+* table \<table> ... \</table>
+* tr - table row
+* td - table data ( cells)
+```html
+    <body>
+        <table>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+        </table>
+    </body>
+```
+* images \<img src="FILENAME.png"> bmp often not supportd by browser; png tiff jiff jpeg are normally supported
+* \<img alt="Harvard University" src="FILENAME.png"> alt shows up if the imag or img path is broken it can also be read out with a screen reader
+```html
+    <body>
+        <video controls muted> <!-- controls shows video control buttons like play and stop
+                                muted means audio is muted by default -->
+            <source src="video.mp4" type="video/mp4">
+        </video>
+    </body>
+```
+* links
+```html
+    <body>
+       Visit <a href="https://www.harvard.edu">Harvard</a>. <!-- <a INput>Linktext</a> - anker; href - hyper reference-->
+    </body>
+```
+creates a link to Harvard page on the word Harvard
+* relative Link - Link to a file or page in my own port/folder
+* external Link - Link to an external page
+```html
+    <body>
+        <form action="https://www.google.com/search" method="get"> <!-- send querey to google server -->
+            <input autocomplete="off" autofocus name="q" placeholder="Query" type="search"> <!-- q- query type search gives the option to clear the search box with one click in contrast to "text" autocomplete of as iy says deactivates the autocomplete; autofocus automatically activates the field; placeholder is the text shown in the field if noting is typed in-->
+            <input type="submit" value="Google Search"> <!-- submit creates a search button here its named google search-->
+        </form>
+    </body>
+```
+* type can also be type="email" to only allow valid email addresses 
+* buttons can also be created wit \<button>Buttonname\</button>
+* attribute pattern can hold Regexes pattern=".SBP_\d"
+* this can easily be overwritten by the dev tool sin a browser and is insufficient for proper format checking
+
+validator.w3.org can be used to validate that html file is up to standart
+* html entities &#169 would be the copyright symbol
+
+## CSS
+* properties - key value pairs to define stuff like colour
+* style (head) \<style>\</style> OR \<link href="styles.css" rel="stylesheet"> the second version allows for the css file to be integrated and not everything in one file
+```html
+    <body>
+        <p style="font-size: large; text-align: center;">
+            John Harvard
+        </p>
+        <p style="font-size: medium; text-align: center;">
+            Welcome to my home page!
+        </p>
+        <p style="font-size: small; text-align: center;">
+            Copyright &#169; John Harvard
+        </p>
+    </body>
+```
+* the p should be substituted by div since the parts are not paragraphs 
+* several parts can be modified by a parent
+* semantic tags are usefull to keep an overview like header main footer
+
+```html
+    <head>
+        <title>css</title>
+    </head>
+    <body style="text-align: center">
+        <header style="font-size: large">
+            John Harvard
+        </header>
+        <main style="font-size: medium">
+            Welcome to my home page!
+        </main>
+        <footer style="font-size: small">
+            Copyright &#169; John Harvard
+        </footer>
+    </body>
+```
+* HTML should be the structure CSS in a extra file the style 
+```CSS
+.centered
+{
+    text-align: center;
+}
+
+.large
+{
+    font-size: large;
+}
+
+.medium
+{
+    font-size: medium;
+}
+
+.small
+{
+    font-size: small;
+}
+```
+or using the \<style> inside the HTML file
+
+```html
+<html lang="en">
+    <head>
+        <style>
+
+            .centered
+            {
+                text-align: center;
+            }
+
+            .large
+            {
+                font-size: large;
+            }
+
+            .medium
+            {
+                font-size: medium;
+            }
+
+            .small
+            {
+                font-size: small;
+            }
+
+        </style>
+        <title>css</title>
+    </head>
+    <body class="centered">
+        <header class="large">
+            John Harvard
+        </header>
+        <main class="medium">
+            Welcome to my home page!
+        </main>
+        <footer class="small">
+            Copyright &#169; John Harvard
+        </footer>
+    </body>
+</html>
+```
+* Frameworks - third party code css files
+* example would be [bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
+
+## JavaScript
+* Basics
+```JavaScript
+if (x < y)
+{
+
+}
+else if (x > y)
+{
+
+}
+else
+{
+
+}
+```
+```js
+let counter =  0;
+counter++;
+```
+```js
+for (let i = 0; i < 3; i++)
+{
+
+}
+
+while (true)
+{
+
+}
+```
+* code can be in header in \<script> Code \</script> or better in \<script src="script.js">\</script>
+* can sometimes also be included in body if the order matters
+Hello World
+```HTML
+<!DOCTYPE html>
+
+<!-- Demonstrates onsubmit -->
+
+<html lang="en">
+    <head>
+        <script>
+
+            function greet()
+            {
+                alert('hello, ' + document.querySelector('#name').value); <!--alert creates a pop up; document is global a global Var in browsers in JS it has the function querySelector lets you select elements by id classes etc value referces to value given to #name -->
+            }
+
+        </script>
+        <title>hello</title>
+    </head>
+    <body>
+        <form onsubmit="greet(); return false;">
+            <input autocomplete="off" autofocus id="name" placeholder="Name" type="text">
+            <input type="submit">
+        </form>
+    </body>
+</html>
+```
+better JS syntax
+```js
+document.querySelector('form').addEventListener('submit', function(event) { //EventListener listens for input to be submitted as soon as it is the input is registered and the function excecuted form refers to the form object in body in the chunk above
+    alert('hello, ' + document.querySelector('#name').value);
+    event.preventDefault(); // prevents the standart event for submit (sending the Data to the server)
+    });
+```
+```js
+document.addEventListener('DOMContentLoaded', function() { // ensures the whole html file is loaded before the following functions get executed
+                document.querySelector('form').addEventListener('submit', function(e) {
+                    alert('hello, ' + document.querySelector('#name').value);
+                    e.preventDefault();
+                });
+            })
+```
