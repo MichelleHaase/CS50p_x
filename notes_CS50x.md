@@ -214,7 +214,7 @@ int main(void)
 ## compilation 
 * clang auto creates a FILE ./a; clang -o names_file file.c
 * needs command line args to define the compilation
-* libraries need to be linked thru command line with -l; clang -o names_file file.c -lcs50
+* libraries need to be linked through command line with -l; clang -o names_file file.c -lcs50
 * make is created by CS50 and only works in their could version of VSCode
   
 compiling as used today consists of 4 steps
@@ -348,7 +348,7 @@ int main(int argc, string argv[]) #argc argument count argv argument vector
 ### Big O notation
 * Big O Omega and Theta are asymptomatic Notations
 * Big O notation always describes how log a Algorithm takes in the worst case
-* in a graph linear search would be time n since in the worst case you would need to go thru all of the data
+* in a graph linear search would be time n since in the worst case you would need to go through all of the data
   taking every second data point would be n/2
   and binary search - halfing the data points each time and check for direction - would be log2n
 * in CS this is shown in the order of a time complexity 
@@ -418,7 +418,7 @@ int main(void)
 
 ### merge sort
 * sort left half of numbers the right half then merge them, if there is only one number quit
-* merge means going thru both lists comparing the first entry and taking the smallest one to a new array
+* merge means going through both lists comparing the first entry and taking the smallest one to a new array
 * sorting one half means recursivly calling merge sort till only one number is on each side then merge there is memory needed for each halfing and sorting
 * generally if you want to solve something quicker you need more space and vice versa
 * O(n log n) Ω(n log n)
@@ -1286,3 +1286,17 @@ document.addEventListener('DOMContentLoaded', function() { // ensures the whole 
                 });
             })
 ```
+
+
+
+# CS50x Lecture 9 Flask
+
+# CS50x Lecture 9.5 Cybersecurity
+## hasching for passwords
+stored for example in Databases passwords should not be stored directly they should be run through a Hashing algorithm and that result stored. in contrast to encryption which should be reversable hashing is not. Hash functions use a mix of mathematical changes that also include bitwise operators like XOR, to really ensure irreversibility even if the whole algorithm is known Modulo is used which completely truncates some of the information everytime its used. there are other factors too, the algorithm ensures that small changes result in completely different outcomes, all inputs get a fixed length output independent of the input length and more.
+
+## rainbow table
+a Table where a Hash table is created in advance with common passwords and the corresponding Hashes. would take up a massive amount of space with longer passwords.
+
+## salting
+adding some "salt" to the password that is unique for the user to the input for the hashing algorithm. This makes it impossible to infere which useres might have the same passwords from the Hashes.

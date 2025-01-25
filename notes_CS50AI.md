@@ -30,7 +30,7 @@
 * to expand a node means to consider all possible actions
 ### depth-first search DFS
 * uses a Stack as Data structure for the frontier, last in first out
-* this approach goes completely thru (as deep as possible) one branch of the graph before it considers another because the last Node added will always be next to be explored
+* this approach goes completely through (as deep as possible) one branch of the graph before it considers another because the last Node added will always be next to be explored
 * at beat (lucky) this algorithm can be really fast at worst it will exhaust every possibilty before it finds its Mark
 * it might not return the optimal path
 ```
@@ -48,7 +48,7 @@
 ```
 ### breadth first search BFS
 * uses a Queue as Data structure for frontier, first in first out
-* goes completely thru every level bevor it goes deeper into the initial state
+* goes completely through every level bevor it goes deeper into the initial state
 * is more efective the closer inital and goal state lay together
 * always returns optimal, might explore every state to get there
   
@@ -92,7 +92,7 @@
 * in this case X would be the Max player - trying to maximize the Score   
   and O would be the min player - trying to minimize the Score   
   this ensure that a Tie is a preferred option to the opponent winning
-* recursive function that goes thru the possible decisions and takes the option that has the lowest Value in the end assuming optimal from the opponent 
+* recursive function that goes through the possible decisions and takes the option that has the lowest Value in the end assuming optimal from the opponent 
 * there are two functions MIN-Value and MAX- Value that call each other recursively until a terminal state occurs assuming the other function always picks the most optimal option, this gets reevaluated each turn
 
 1. S0 - the board
