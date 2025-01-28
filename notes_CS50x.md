@@ -1292,7 +1292,7 @@ document.addEventListener('DOMContentLoaded', function() { // ensures the whole 
 # CS50x Lecture 9 Flask
 
 # CS50x Lecture 9.5 Cybersecurity
-## hasching for passwords
+## hashing for passwords
 stored for example in Databases passwords should not be stored directly they should be run through a Hashing algorithm and that result stored. in contrast to encryption which should be reversable hashing is not. Hash functions use a mix of mathematical changes that also include bitwise operators like XOR, to really ensure irreversibility even if the whole algorithm is known Modulo is used which completely truncates some of the information everytime its used. there are other factors too, the algorithm ensures that small changes result in completely different outcomes, all inputs get a fixed length output independent of the input length and more.
 
 ## rainbow table
@@ -1300,3 +1300,16 @@ a Table where a Hash table is created in advance with common passwords and the c
 
 ## salting
 adding some "salt" to the password that is unique for the user to the input for the hashing algorithm. This makes it impossible to infere which useres might have the same passwords from the Hashes.
+
+## Cryptography
+### symmetric cryptography
+encryption and decryption work with the same algorithm and one key can encrypt and reverse the process, like the Caesar cipher from Lecture 2.
+
+### asymmetric cryptography
+encryption is done with a public key while for decryption a private key is used. These key have mathematical relations but are not inferrable from each other. This is ensured with the public key being derived from the private one with a one-way function (like hashing).
+
+## passkeys
+are credentials that are based on public and private key pairs, they allow password free login. The website server has the public key as reference for your account and if you try to login the website sends a challenge to your device that with your private key creates a digital signature which can be verified with the public key.
+
+## end-to-end encryption
+is a way encrypting communication in a way where the service provider can't see a decrypted version of the communication only the two intended parties.
