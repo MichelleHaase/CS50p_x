@@ -1290,6 +1290,89 @@ document.addEventListener('DOMContentLoaded', function() { // ensures the whole 
 
 
 # CS50x Lecture 9 Flask
+* needs the code in app.py and the dependencies in requirements.txt
+* standart port is 5000 not 8080 as with http directly
+* the requirements can be installed with
+```bash
+pip install -r requirements.txt # -r = requirement file pip will read in all lines one lib per line
+```
+```python
+form flask import Flask
+
+app = Flask(__name__) # checks if the filename is app.py
+
+
+@app.route("/") # the @ decorator runs the index function as soon as a request ending with / is recieved
+def index():
+    return "hello, world"
+```
+```bash
+flask run # not running the file with python but directly flask
+```
+* getting input using the GET methode is accessed through request.args.get
+* input from POST is accessed though request.form.get
+* In Flask a template is a html file that will be rendered through Flask, it must be in a templates subfolder
+```python
+
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def index():
+    name = request.args.get("name", "world") # set name either to the input in nameIn or to world
+    return render_template("index.html", nameIn=name)
+```
+with
+```html
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <title>hello</title>
+    </head>
+
+    <body>
+        hello, {{ nameIn }}
+    </body>
+
+</html>
+```
+layout templates can be used in a way where, one file holds all the information that every file needs and the individuals files just fill in a block. it must be in the template folder
+```html
+<!-- Layout.html -->
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta name="viewport" content="initial-scale=1, width=device-width"> <!-- autofits to screen width -->
+        <title>hello</title>
+    </head>
+
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+
+</html>
+```
+and 
+```html
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <form action="/greet" method="get">
+        <input autocomplete="off" autofocus name="name" placeholder="Name" type="text">
+        <button type="submit">Greet</button>
+    </form>
+
+{% endblock %}
+```
+
 
 # CS50x Lecture 9.5 Cybersecurity
 ## hashing for passwords
