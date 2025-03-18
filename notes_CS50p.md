@@ -177,6 +177,30 @@ for i in List:
 for i in range(len(List)):
     print(i + 1, List[i]) -- prints the ranking and the contents together
 ```
+
+* Lists shouldn't be directly modified inside Loops
+```python
+my_list = ["A", "B", "C", "D", "E"]
+
+for ele in my_list:
+    if ele == "B":
+        my_list.remove(ele)
+    else:
+        print(ele)
+
+# prints out A D E
+```
+* when B is removed C shifts to the index of B and is never checked
+```python
+My_List = ["A", "B", "C", "D", "E"]
+
+for ele in My_List[:]:  # Iterate over a copy of the list
+    if ele == "B":
+        My_List.remove(ele)
+    else:
+        print(ele)
+```
+* with the slice notation [:] a "shadow copy" is created so the loop goes over the unchanged copy while the original list is changed accordingly
 ## dicts
 define absence of a Value with None
 
@@ -1091,6 +1115,10 @@ def yell(*words)
 ```
 ## List comprehension
 ```python
+# basic syntax:
+new_list = [expression for item in iterable if condition]
+
+# example:
 yell("This", "is", "CS50")
 
 def yell(*words)

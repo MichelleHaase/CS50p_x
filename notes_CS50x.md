@@ -1309,6 +1309,7 @@ def index():
 ```bash
 flask run # not running the file with python but directly flask
 ```
+
 * getting input using the GET methode is accessed through request.args.get
 * input from POST is accessed though request.form.get
 * In Flask a template is a html file that will be rendered through Flask, it must be in a templates subfolder
@@ -1372,6 +1373,74 @@ and
 
 {% endblock %}
 ```
+* by default when creatinga route in flask only GET is supported
+    all other methodes must be declared
+* request.args.get for input from get
+* request.form.get for input from POST
+* POST is the standart for sensitive, large data since its not shown in the URL
+* the data can be seen in the browser dev tools in Network/Payload 
+```python
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+
+@app.route("/", methodes=["POST"])
+def index():
+    name = request.form.get("name", "world") # set name either to the input in nameIn or to world
+    return render_template("index.html", nameIn=name)
+```
+* with jinja conditionals can be added to templates 
+```jinja
+{% extends "layout.html" %}
+
+{% block body %}
+
+    hello,
+    {% if name %}
+        {{name}}
+    {% else %}
+        world
+    {% endif %}
+
+{% endblock %}
+```
+* client side validation - writing the html in a way that enforces eg all necessary inputs to be required - used to help User to avoid mistakes
+* server side validation - writing the script in a way that only valid inputs are registered, defining what's valid in the script not the html site - protects from intentional faulty inputs
+``` python
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+SPORTS = ["A", "B", "C",] # trailing comma by convention
+
+@app.route("/")
+def index():
+    return render_template("index.html", sport=SPORTS)
+
+@app.route("/register", methode=["POST"])
+def register():
+    if request.form.get("sport") not in SPORTS:
+        return render_template("error.html", message="Invalid Sport")
+    return render_template("success.html")
+```
+```jinja
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h1>Error</h1> 
+    <p>{{ message }}</p>
+
+{% endblock %}
+```
+* here only input that are valid are registered because their checked against the valid list after input
+
+## designs
+* MVC Model View Controller
+    * Controller - app.py - Business logic
+    * View - everthing in templates folder - everything the User sees/ interacts with
+    * Model - Database/ Storage 
 
 
 # CS50x Lecture 9.5 Cybersecurity
