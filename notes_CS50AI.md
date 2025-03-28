@@ -1,6 +1,6 @@
 # CS50AI Lecture 0 Search
 * agent - entity that perceives environment and acts upon it
-* state - konfiguration of agent, initial state - state where agent begins problem solving
+* state - configuration of agent, initial state - state where agent begins problem solving
 * actions - set possible operations that can be executed per state
 * transition model - result function, Result(a,s) returns the state resulting from performing action (a) in state (s), 
   the model is the way to determine what ne state will exits after an action is taken
@@ -20,7 +20,7 @@
   * a path cost, from the initial state to the current node   
 <br />
 
-## search Alogrithms
+## search Algorithms
 * frontier is a mechanism that manges the nodes, it starts with just the initial state and an empty set for explored Nodes then it repeats   
   1. stop if frontier is empty --> no Solution
   2. remove a Node from the frontier
@@ -49,7 +49,7 @@
 ### breadth first search BFS
 * uses a Queue as Data structure for frontier, first in first out
 * goes completely through every level bevor it goes deeper into the initial state
-* is more efective the closer inital and goal state lay together
+* is more effective the closer initial and goal state lay together
 * always returns optimal, might explore every state to get there
   
 ```
@@ -73,7 +73,7 @@
 * might not return optimal
   
 ### A* Search
-* workrs similar to greedy best-first but also takes the cosdt to reach each node(steps) into consideration
+* works similar to greedy best-first but also takes the cost to reach each node(steps) into consideration
 * expands the next node that has the lowest g(n) + h(n)\
 * g(n) cost to reach current node
 * returns optimal if h(n) is admissible (never overestimates) and consistent 
