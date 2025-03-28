@@ -35,4 +35,111 @@ by default Ascending tags ASC DESC <br>
 SELECT ROUND(AVG("rating"),2) AS "Avarage rating" FROM "list"; -- calcs the average rating and rounds it to two decimal points and names the column "Avarage rating"
 SELECT COUNT(DISTINCT "publisher") FROM "list";
 ```
-# Lecture 2
+# Lecture 2 Relating
+## Relationships
+
+* one to one one author writes one book
+* one to many one author writes many books
+* many to many many authors write books together
+
+### Crows foot Notation
+![alt text](p17.jpg)
+One to One would look like
+![alt text](p19.jpg)
+
+## subqueries
+```sql
+SELECT "name"
+FROM "authors"
+WHERE "id" = (
+    SELECT "author_id"
+    FROM "authored"
+    WHERE "book_id" = (
+        SELECT "id"
+        FROM "books"
+        WHERE "title" = 'Flights'
+    )
+);
+```
+always run form the most inside parenthesis first
+* each nesting gets indentation
+### IN
+```sql
+SELECT "title"
+FROM "books"
+WHERE "id" IN (
+    SELECT "book_id"
+    FROM "authored"
+    WHERE "author_id" = (
+        SELECT "id"
+        FROM "authors"
+        WHERE "name" = 'Fernanda Melchor'
+    )
+);
+```
+### JOIN
+```sql
+SELECT *
+FROM "sea_lions"
+JOIN "migrations" ON "migrations"."id" = "sea_lions"."id";
+```
+* standart in sqlite is an inner *JOIN*
+    * only rows that have the identifier in both tables are joined
+* *LEFT JOIN* - the data in the table first named is prioritised, the the data from the first table is kept even if there are no corresponding values in the right table, only matching rows have entries in all columns
+* *RIGHT JOIN* - the data in the table secondly named is prioritised, the the data from the second table is kept even if there are no corresponding values in the left table, only matching rows have entries in all columns
+* *FULL JOIN* - all Data is kept only matching rows have entries in all columns
+* *NATURAL JOIN* - omits the notation for id columns if there are both named **exactly** the same
+```sql
+-- Left Join
+SELECT *
+FROM "sea_lions"
+LEFT JOIN "migrations" ON "migrations"."id" = "sea_lions"."id";
+-- Natural Join
+SELECT *
+FROM "sea_lions"
+NATURAL JOIN "migrations";
+```
+## Sets
+### INTERSECT
+* the intersection of values in two groups eg being both an author an a translator - Authores INTERSECT translators
+```sql
+SELECT "book_id" FROM "translated"
+WHERE "translator_id" = (
+    SELECT "id" from "translators"
+    WHERE "name" = 'Sophie Hughes'
+)
+INTERSECT
+SELECT "book_id" FROM "translated"
+WHERE "translator_id" = (
+    SELECT "id" from "translators"
+    WHERE "name" = 'Margaret Jull Costa'
+);
+```
+
+### UNION
+* the combination of values of two groups, removes duplicates, eg being either authors or translators, but ensuring each person appears only once in the result - Authores UNION translators
+```sql
+SELECT 'author' AS "profession", "name" 
+FROM "authors"
+UNION
+SELECT 'translator' AS "profession", "name" 
+FROM "translators";
+```
+### UNION ALL
+* the combination of values of two groups, keeps duplicates, eg Listing all occurrences of people being authors or translators, even if they appear in both groups - Authores UNION ALL translators
+
+### EXCEPT
+* the exclusion of values from another set in the current set, eg being only an author not a translater - Authores EXCEPT translators
+```sql
+SELECT "name" FROM "authors"
+EXCEPT
+SELECT "name" FROM "translators";
+```
+## GROUP BY
+```sql
+SELECT "book_id", ROUND(AVG("rating"), 2) AS "average rating"
+FROM "ratings"
+GROUP BY "book_id"
+HAVING "average rating" > 4.0; -- having is where for grouped data
+```
+grouping data in chunks the apply a function AVG to each chunk, since the data points are no longer addressed individually HAVING is used to address the chunks instead of WHERE
