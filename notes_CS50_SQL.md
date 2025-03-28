@@ -1,4 +1,4 @@
-# Lecture 1 Querying
+# Lecture 0 Querying
 General Order of Keywords <br>
 * SELECT – Specifies which columns to retrieve.
 * DISTINCT (optional) – Removes duplicate rows from the result.
@@ -35,7 +35,7 @@ by default Ascending tags ASC DESC <br>
 SELECT ROUND(AVG("rating"),2) AS "Avarage rating" FROM "list"; -- calcs the average rating and rounds it to two decimal points and names the column "Avarage rating"
 SELECT COUNT(DISTINCT "publisher") FROM "list";
 ```
-# Lecture 2 Relating
+# Lecture 1 Relating
 ## Relationships
 
 * one to one one author writes one book
@@ -143,3 +143,41 @@ GROUP BY "book_id"
 HAVING "average rating" > 4.0; -- having is where for grouped data
 ```
 grouping data in chunks the apply a function AVG to each chunk, since the data points are no longer addressed individually HAVING is used to address the chunks instead of WHERE
+
+# Lecture 2 Designing
+.schema - prints the schema to the cli   
+    * .schema 'tablename' - prints only the schema for a table   
+.quit - to return to the sqlite prompt
+
+## Normalisation
+* put entities in their own table eg people, riders, stations
+* establish relations eg many to many     
+
+## Tables
+
+* Data types dont exist in sqlite the class INTEGER can hold several types of ints 0-8 byte TEXT upto ?? GB of chars
+* storage classes - NULL INTEGER REAL TEXT BLOB (Binary large object; like images,videos) (the type data is stored as in the end)
+* type affinities, in sqlite, INTEGER REAL NUMERIC TEXT BLOB these type affinities are not enforced at all but will be translated into the specified type if possible
+* table constraints PRIMARY KEY, FOREIGN KEY
+* column constraints 
+    * CHECK - logical check like mail regex 
+    * DEFAULT - default value if non given
+    * NOT NULL - must have data
+    * UNIQUE - can occur only once in column
+```sql
+CREATE TABLE IF NOT EXISTS "name"(
+    "Columnname" column_type,
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "something" TEXT NOT NULL CHECK("something" IN ('a','b','c')),
+    "some_number" INTEGER CHECK("some_number" != 0),
+    "other_id" INTEGER,
+    "time" DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY ("other_id") REFERENCES "others"("id")
+);
+```
+* DROP TABLE to delete a table + contents
+* ALTER TABLE
+    * ALTER TABLE "one" RENAME TO "two";
+    * ALTER TABLE "two" ADD COLUMN "type" TEXT;
+    * ALTER TABLE "two" RENAME COLUMN "" TO "";
+    * ALTER TABLE "two" DROP COLUMN "";
