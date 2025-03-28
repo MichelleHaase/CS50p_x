@@ -151,11 +151,32 @@ grouping data in chunks the apply a function AVG to each chunk, since the data p
 
 ## Normalisation
 * put entities in their own table eg people, riders, stations
-* establish relations eg many to many     
+* establish relations eg many to many       
+<br>
+1. Normal Form   
+Only one Value per Cell  
+No duplicate rows, atomic (single) values per column.
+
+2. Normal form   
+all columns depend on primary key  
+No partial dependencies (columns must depend on full primary key).
+
+3. Normal Form   
+non-key columns should only depend on the primary key, not other non-key columns  
+No transitive dependencies (columns depend only on the primary key).
+
+4. Normal Form   
+independent sets of data should not be stored in the same table  
+No multivalued dependencies (separate independent data).
+
+5. Normal form
+breaking tables into their smallest form without losing data, seldom used only for very complex dbs with several many to many relations.
+No join dependencies (optimizing complex relationships).
 
 ## Tables
 
-* Data types dont exist in sqlite the class INTEGER can hold several types of ints 0-8 byte TEXT upto ?? GB of chars
+* Data types dont exist in sqlite the class INTEGER can hold several types of ints 0-8 byte TEXT upto ?? GB of chars  
+
 * storage classes - NULL INTEGER REAL TEXT BLOB (Binary large object; like images,videos) (the type data is stored as in the end)
 * type affinities, in sqlite, INTEGER REAL NUMERIC TEXT BLOB these type affinities are not enforced at all but will be translated into the specified type if possible
 * table constraints PRIMARY KEY, FOREIGN KEY
