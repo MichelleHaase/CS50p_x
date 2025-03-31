@@ -202,3 +202,73 @@ CREATE TABLE IF NOT EXISTS "name"(
     * ALTER TABLE "two" ADD COLUMN "type" TEXT;
     * ALTER TABLE "two" RENAME COLUMN "" TO "";
     * ALTER TABLE "two" DROP COLUMN "";
+
+# Lecture 3 Writing
+## inserting
+INSERT INTO - adding data to existing table
+```sql
+INSERT INTO "tablename" ("column_name1", "column_name2",  "column_name3") 
+VALUES 
+("val1", "val2", "val3"),
+("val4", "val5", 52),
+("val7", NULL, "val9");
+```
+```bash
+.import --csv --skip 1 filename.csv tablename # (skips the header)
+# will run into trouble if there are differnt number of columns in the tables id!!
+.import --csv filename.csv temp_tablename
+```
+```sql
+INSERT INTO tablename (columns...) 
+SELECT (columns...) FROM temp_tablename
+```
+## deleting
+```sql
+DELETE FROM "tablename"; -- empties table completely
+DELETE FROM "tablename" WHERE title = 'title1'; -- deletes entires with this title
+DELETE FROM "tablename" WHERE 'column1' IS NULL; -- IS NULL not = NULL
+```
+* Deleting data with foreign keys
+```sql
+-- In the Schema
+CREATE TABLE IF NOT EXISTS "name"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+        FOREIGN KEY ("other_id") REFERENCES "others"("id") ON DELETE RESTRICT -- standart
+        FOREIGN KEY ("other_id") REFERENCES "others"("id") ON DELETE SET NULL 
+        FOREIGN KEY ("other_id") REFERENCES "others"("id") ON DELETE SET DEFAULT
+        FOREIGN KEY ("other_id") REFERENCES "others"("id") ON DELETE NO ACTION -- not advised
+        FOREIGN KEY ("other_id") REFERENCES "others"("id") ON DELETE CASCADE -- deletes the referenced value too
+);
+```
+## changing data
+* String functions
+    * UPPER(), LOWER(), [L/R]TRIM(), REPLACE(column, OLD, NEW), ....
+* Numeric
+    * ABS() [Absolute value], ROUND(), CEIL()/FLOOR() [rounds to nearest INT], RANDOM()
+* Date
+    * DATE('now'), TIME('now'), DATETIME('now'), STRFTIME(format, timestring)
+```sql
+UPDATE "tablename" SET "columnname" = (Subquery); -- changes existing entries
+UPDATE "tablename" SET "columnname" = TRIM('columnname'); -- removes whitespace on both sides
+UPDATE "tablename" SET "columnname" = UPPER('columnname'); -- all caps
+```
+
+## TRIGGER
+sql statements executed when certain other statements are invoked  
+inside the TRIGGER the old entry can be accessed with OLD."columname" and the updated Value with NEW."columname"
+```sql
+CREATE TRIGGER name
+[BEFORE/AFTER] [INSERT/UPDATE/DELETE] ON tablename
+FOR EACH ROW
+BEGIN
+    actual trigger logic;
+END;
+
+CREATE TRIGGER test_trigger
+BEFORE DELETE ON test_table
+FOR EACH ROW
+BEGIN
+    INSERT INTO Table2 ("col1", "col2")
+    VALUES (OLD."col1", "text");
+END;
+```
