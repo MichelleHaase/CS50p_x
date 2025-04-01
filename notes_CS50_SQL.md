@@ -175,7 +175,7 @@ No join dependencies (optimizing complex relationships).
 
 ## Tables
 
-* Data types dont exist in sqlite the class INTEGER can hold several types of ints 0-8 byte TEXT upto ?? GB of chars  
+* Data types don't exist in sqlite the class INTEGER can hold several types of Ints 0-8 byte TEXT up to ?? GB of chars  
 
 * storage classes - NULL INTEGER REAL TEXT BLOB (Binary large object; like images,videos) (the type data is stored as in the end)
 * type affinities, in sqlite, INTEGER REAL NUMERIC TEXT BLOB these type affinities are not enforced at all but will be translated into the specified type if possible
@@ -215,7 +215,7 @@ VALUES
 ```
 ```bash
 .import --csv --skip 1 filename.csv tablename # (skips the header)
-# will run into trouble if there are differnt number of columns in the tables id!!
+# will run into trouble if there are different number of columns in the tables id!!
 .import --csv filename.csv temp_tablename
 ```
 ```sql
@@ -272,3 +272,18 @@ BEGIN
     VALUES (OLD."col1", "text");
 END;
 ```
+# Lecture 4 Viewing
+view - virtual table created by query   
+views cost less memory than saving the same data in several tables   
+CREATE VIEW will alter schema permanently, cant alter stored data through the view
+CREATE TEMPORARY VIEW only active till the database connection is closed
+```sql
+CREATE VIEW viewname AS
+SELECT ....;
+```
+CTE - comman table expression
+```sql
+WITH name_CTE_1 AS (SELECT...)
+SELECT 'column' FROM name_CTE_1 ...;
+``` 
+# Lecture 5 Optimising 
