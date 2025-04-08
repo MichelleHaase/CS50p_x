@@ -287,3 +287,17 @@ WITH name_CTE_1 AS (SELECT...)
 SELECT 'column' FROM name_CTE_1 ...;
 ``` 
 # Lecture 5 Optimising 
+.timer on - shows elapsed time for each execution   
+usually when a query is executed the whole table scanned for the parameters (whole-table-scan)  
+search for indexes like primary keys is automatically optimised   
+
+## Indexes
+Covering Index, through it queried data can be retrieved from the index as with primary keys, used to save time since not the whole table needs to be searched
+```sql
+CREATE INDEX indexname
+ON tablename (column1,...);
+```
+```sql
+EXPLAIN QUERY PLAN SELECT...
+```
+shows if for example an index was used
