@@ -33,7 +33,7 @@
 * this approach goes completely through (as deep as possible) one branch of the graph before it considers another because the last Node added will always be next to be explored
 * at beat (lucky) this algorithm can be really fast at worst it will exhaust every possibilty before it finds its Mark
 * it might not return the optimal path
-```
+```python
     # Define the function that removes a node from the frontier and returns it.
     def remove(self):
     	  # Terminate the search if the frontier is empty, because this means that there is no solution.
@@ -52,7 +52,7 @@
 * is more effective the closer initial and goal state lay together
 * always returns optimal, might explore every state to get there
   
-```
+```python
     # Define the function that removes a node from the frontier and returns it.
     def remove(self):
     	  # Terminate the search if the frontier is empty, because this means that there is no solution.
@@ -110,3 +110,207 @@
 #### Depth-limited Minimax
 * only goes a certain amount of levels deep into the tree
 * evaluation function - estimates the utility at the predetermined depth
+
+# CS50AI Lecture 1 Knowledge
+## knowledge based agents
+agents that reason on internal representations of knowledge   
+* sentence - assertion in a knowledge representation language   
+* knowledge base - set of sentences that the ai knows are true   
+* inference - process of deriving new sentences based on old ones
+## Propositional logic
+* uses propositional symbols that represent sentences or facts like P Q R
+* logical Connectives ¬ not; ∧ and; ∨ or; → implication; ↔ bi-conditional  
+* or includes the possibility of both being right just one would be XOR (⊕)
+<br>
+### Truth tables   
+NOT (¬)   
+
+| P | ¬P |   
+|---|----|   
+| False | True |   
+| True | False |   
+
+AND (∧)
+
+| P | Q | P∧Q |
+|---|---|-----|
+| False | False | False |
+| False | True | False |
+| True | False | False |
+| True | True | True |
+
+OR (∨)
+
+| P | Q | P∨Q |
+|---|---|-----|
+| False | False | False |
+| False | True | True |
+| True | False | True |
+| True | True | True |
+
+Implication (→)
+
+| P | Q | P→Q |
+|---|---|-----|
+| False | False | True |
+| False | True | True |
+| True | False | False |
+| True | True | True | 
+
+if P is true Q must be true for P to imply Q, if P is false the implication cant be falsified so its true.   
+Consider a promise:
+
+  Promise: “If I pass the exam (P), then I will celebrate with a party (Q).”
+
+Here are the scenarios:
+
+  If you do pass (P is true) and there is a party (Q is true), the promise is fulfilled.
+
+  If you pass and no party is thrown, the promise is broken (true antecedent, false consequent → implication false).
+
+  If you do not pass (P is false), then whether or not there is a party doesn’t affect the promise because the promise was only about the case of passing. In logic, we call this situation “vacuously true” because the condition that would need to be tested (passing) never actually occurred.
+
+* entailment (⊨)   
+α ⊨ β
+
+ alpha entails beta, in every model in which α is true, β is also true
+
+### model checking
+knowledge Base : (P ∧ ¬Q) → R
+check: KB(knowledge Base) ⊨ α
+query (α) - is R True
+
+| P | Q | R | KB |
+|---|---|---|---|
+| False | False | False | False |
+| False | False | True | False |
+| False | True | False | False |
+| False | True | True | False |
+| True | False | False | False |
+| True | False | True | True |
+| True | True | False | False |
+| True | True | True | False |
+
+KB ⊨ α is only true for one instance in this case
+### inference rules
+#### Modus Ponens 
+
+|  |  |
+|--|--|
+| α → β  | if alpha entails beta |    
+| α      | if alpha is true |
+| β      | beta is true can be inferred 
+
+#### And Elimination
+
+|  |  |
+|--|--|
+| α ∧ β  | if alpha and beta is true |
+| α | then just alpha is true | 
+
+#### Double Negation Elimination
+
+|  |  |
+|--|--|
+| ¬(¬α)  | not alpha is not true |
+| α | then alpha is true | 
+
+#### Implication Elimination
+
+|  |  |   |
+|--|--| --|
+| α → β | if alpha implies beta | if its raining he is inside
+| ¬α v β| if not alpha beta is true | either it's not raining or he is inside
+
+#### Bi-conditional Elimination
+
+|  |  |   |
+|--|--| --|
+| α ↔ β | if alpha Bi-conditionally implies beta | only if it is raining hes is inside
+| (α → β) ∧ (β → α) | alpha implies beta and beta implies alpha | if it's raining he's inside; If he's inside it's raining
+
+#### De Morgan's Laws
+
+|  |  |   |
+|--|--| --|
+| ¬(α ∧ β) | if not alpha and beta | it is not true that a and b passed the test
+| ¬α v ¬β | either not alpha or not beta  | a did not pass the test OR b did not pass the test
+
+
+|  |  |   |
+|--|--| --|
+| ¬(α v β) | if not alpha or beta | it is not true that a or b passed the test
+| ¬α ∧ ¬β | neither alpha nor beta  | a did not pass the test and b did not pass the test
+
+#### Distributive Property
+
+|  |  |
+|--|--|
+| (α ∧ (β v γ)) | alpha and, beta or gamma are true | 
+| (α ∧ β) v (α ∧ γ) | alpha and beta,  or alpha and gamma are true  |
+
+|  |  |
+|--|--|
+| (α v (β ∧ γ)) | alpha or beta and gamma are true | 
+| (α v β) ∧ (α v γ) | alpha or beta and alpha or gamma are true  |
+
+### Theorem Proving 
+initial state = knowledge base
+actions = inference rules
+transition model = updated KB after inference
+goal test = checking alpha fro KB ⊨ α query
+path cost = number of steps in the proof
+
+clause - a disjunction od literals, propositional symbols connected with or - P v R  
+conjunctive normal form (CNF) - logical sentence that is a conjunction (connected by and) of clauses(connected by or)- (P v R) ∧ (D v ¬E) ∧...   
+<br>
+achieve CNF  
+1. Eliminate (change form with inference) bi-conditionals
+2. Eliminate implications
+3. move ¬ inwards with De Morgan's Laws
+4. use distributive Law to distribute v where ever possible
+
+example  
+( P v Q) -> R  
+¬(P v Q) v R - eliminate implication  
+(¬P ∧ ¬Q) v R - De Morgan's Law  
+(¬P v R) ∧ (¬Q v R) - distribution --> CNF  
+
+### Inference by resolution (requires CNF)
+
+|  |  |
+|--|--|
+| P v Q | 
+| ¬P v R |
+| (Q v R) | resolution|
+
+|  |  |
+|--|--|
+| P v Q v S | 
+| ¬P v R v S|
+| (Q v R v S) | resolution|
+keeping S double doesn't change the logic of the sentence so it's cancelled 
+an empty clause in resolution is always false as in resolving ¬P and P to ()
+
+* to determine KB ⊨ α check KB ∧ ¬α (check by contradiction) if ¬α is contradicted α isd True otherwise there is no entailment(⊨)
+
+KB ∧ ¬α to CNF   
+looping over data and simplifying with resolution  
+if an empty clause is the result the contradiction is proofed and alpha is true  
+example   
+KB: (A v B) ∧ (¬B v C) ∧ (¬C)
+Query KB ⊨ A (does the knowledge entail A)   
+first check the negative so ¬A   
+(A v B) ∧ (¬B v C) ∧ (¬C) ∧ (¬A)   
+(¬B v C) ∧ (¬C) = (¬B) = (A v B) ∧ (¬B v C) ∧ (¬C) ∧ (¬A) ∧ (¬B)   
+(¬B) (A v B) = (A) = (A v B) ∧ (¬B v C) ∧ (¬C) ∧ (¬A) ∧ (¬B) ∧ (A)   
+(A) (¬A) = ()
+
+## First-Order Logic
+constants - represent objects like person places  
+Variables - stand for arbitrary objects like x y z    
+Predicate - properties or relationships like loves(x,y), Returns a bool     
+quantifiers * Universal(∀) - for all ∀x isHuman(x), every x is human  
+            * Existential (∃) - there exists - ∃x Loves(x, John) someone love John     
+functions - Map object to another like MotherOf(x), Returns an object   
+logical connectives - as in propositional (¬, ∧, ∨, →, ↔)  
