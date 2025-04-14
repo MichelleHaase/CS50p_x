@@ -300,4 +300,35 @@ ON tablename (column1,...);
 ```sql
 EXPLAIN QUERY PLAN SELECT...
 ```
-shows if for example an index was used
+## concurency
+* transaction - individual unit of work, happens all at once or not at all
+    * properties: ACID
+    * A - atomicity - can't be broken down in smaller pieces eg its not update seller account then buyer account its update both at once
+    * C - Consistency - transaction won't violate db constraints
+    * I - Isolation - queries made at the same time don't interfere with each other
+    * D - Durability - from the time of the commit the data is secured(saved) even the program crashes
+
+```sql
+BEGIN TRANSACTION;
+...
+COMMIT;
+Error
+ROLLBACK;
+```
+if constraints are violated like an account cant have a negative balance, ROLLBACK; reverses the whole transaction
+# Raceconditions
+transactions happening at the same time can overlap and change a wrong balance before rollback takes effect
+isolating:  * UNLOCKED - anyone can read and write 
+            * SHARED - anyone can only read - shared Lock          
+            * EXCLUSIVE - writing is exclusive
+```sql
+BEGIN EXCLUSIVE TRANSACTION; -- complete lock on reading and writing
+...
+COMMIT;
+-- or
+ROLLBACK;
+
+
+BEGIN IMMEDIATE TRANSACTION; -- allows others to read but not write
+...
+```
