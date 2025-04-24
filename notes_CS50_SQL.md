@@ -316,7 +316,7 @@ Error
 ROLLBACK;
 ```
 if constraints are violated like an account cant have a negative balance, ROLLBACK; reverses the whole transaction
-# Raceconditions
+## Raceconditions
 transactions happening at the same time can overlap and change a wrong balance before rollback takes effect
 isolating:  * UNLOCKED - anyone can read and write 
             * SHARED - anyone can only read - shared Lock          
@@ -328,7 +328,14 @@ COMMIT;
 -- or
 ROLLBACK;
 
-
+distributing
 BEGIN IMMEDIATE TRANSACTION; -- allows others to read but not write
 ...
 ```
+# Lecture 6 Scaling
+## Scalability
+MySQL
+more types UNSIGNED and SIGNED(default), AUTO_INCREMENT must be added to id, CHAR(number) for Characters and abbreviations VARCHAR(number) words, TEXT for paragraphs, BLOB, ENUM(options)- only one of those options is viable, SET(options) several options possible, UNIQUE and NOT NULL, DEFAULT CURRENT_TIMESTAMP same as lite names that need to be escapes standart to use ``, FLOAT(4 bytes) DOUBLE PRESICION(8 bytes), DECIMAL(m,d) m- number overall d- numbers after decimal,    
+Date Time(presicion) Datetime(pres) Timestamp(pres) year, pres(0-6) being How precise the time is recorded with 0 being to the second and 6 to the microsecond   
+
+DESCRIBE TABLE gives a tabular overview on table columns and conditions
