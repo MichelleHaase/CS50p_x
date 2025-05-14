@@ -1,4 +1,4 @@
-# Lecture 1 Representing Data
+# Lecture 0 Representing Data
 in quartos(qmd) ctrl+ shift + K renders   
 rstudio still best ide since jupiter has problems finding the kernel and quarto has no var viewer   
 in rstudio klicking oon function and F1 opens help(also ?functionsname)
@@ -64,10 +64,75 @@ NULL - empty (a vector of NULL doesn't exist)
 ## factors
 factor(vector) - categorises data, levels are the unique options
 ```r
-data <- c(1,2,1,1,2,1,2,2,1,2,1,2,1,1,2,1,2,2,)
+data <- c(1,2,1,1,2,1,2,2,1,2,1,2,1,1,2,1,2,2,1)
 factor(data, labels = c("yes", "no"))
 # output: [1] yes no  yes yes no  yes no  no  yes no  yes no  yes yes no  yes no  no  yes
 # Levels: yes no
 ```
-# Lecture 2 transforming Data
-## outiers
+# Lecture 1 transforming Data
+## logicals
+```r
+data <- c(1,2,3,4,5,6,7,8,9)
+data[3] # returns 3
+data[c(2,4,7)] # returns vector of 2,4,7
+data <- data[-c(2,4,7)] # removes 2,4,7 from data
+```
+== equal; != not equal; > greater; >= greater equal ...  
+TRUE(T) FALSE(F)
+& AND | OR (for vectors) && AND || OR(for single values)
+```r
+data <- c(10,2,3,4,-20,6,7,8,9)
+data < 0 # returns F F F F T F F F F
+which(data < 0) # returns 5 (index of the value < 0)
+which(data < 0 | data >= 10) # 1 5
+filter <- data < 0 | data >= 10
+filter2<- !(data < 0 | data >= 10)
+data[filter] # return data that fit criteria
+data2(filter2) # returns all other values
+save(data2, file="data_filtered.RData)
+```
+any()- returns bool if any data meets criteria  
+all()- returns boll if all fit 
+
+mean() only works without NAs or na.rm = TRUE
+```r
+filter <- chicks$feed == "casein"
+casein_chicks <- chicks[filter,] #indexing into dataframe is [row,col] so if only rows are addressed the koma is still necessary
+```
+is.na is.nan. is.null is.infinite
+```r
+is.na(df$col) #returns vector of bools
+data <- df[!is.na(df$col)]
+data <- subset(df,!is.na(col))
+col_data <- subset(df, col == "valuename")
+rownames(df) <- Null # resets the ids after the Nas are removed
+```
+## Menus
+```r
+# options in the column
+feed_options <- unique(chicks$feed)
+
+formatted_options <- paste0(1:length(feed_options), ". ", feed_options)
+
+cat(formatted_options, sep ="\n")
+
+#ask user
+feed_choice <- as.integer(readline("feed type: ,"))
+
+if (fee_choice){
+    cat("invalid choice")
+}
+
+
+#print result
+selected <- feed_options[feed_choice]
+print(subset(chicks, feed == selected))
+```
+rbind() binds rows of df of the same size  
+Q1$quarter <- "Q1" # creates a new column and fills all rows with "Q1"  
+if else can be used as afunction similar to comperhension
+```r
+sales$value <- ifelse(sales$amount > 100, "high Value", "regular")
+```
+
+
