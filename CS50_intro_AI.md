@@ -53,3 +53,25 @@ the weights are adjusted, if necessary, for each datapoint once in each epoch (r
 for data not categorisable or dividable linearly hidden layers (referring to all layers except in- and output) are introduced. Hidden layers have their own activation functions ie thresholds the inputs must achieve for it to activate and fire. these layers allow for more complex data to be processed. these layer often use Rectified linear Unit (ReLU) instead of the unit step function, so if node gets the input of < 0 it's still 0 (doesn't fire) if its above 0 the input amount becomes the output, since the output is no longer just 0 or one more complex data problems can be predicted. In this model there are as many outouts as there are categories to predict whose result add up to one eg we have measures from petal and leafs and want to predict which kind of rose these belong to than the result could look like this:   
 Output 1: 0.60 &nbsp; Output 2: 0.25 &nbsp; Output 3: 0.15   
 meaning that there is a 60% chance of it being the first rose class, 25% chance of being rose class 2, and 15% of it being rose class 3
+
+# Lecture 2 Analysing
+ml with labeled data is supervised learning.
+## unsupervised learning
+convergence - when the model’s loss stops changing significantly with further training
+### k-means Clustering
+the amount of clusters is preset by the programmer, the model then creates k centerpoints and puts them in the data, in each iteration the points are assigned the datapoints closest to them and then centered within them. like this the centerpoints move around the data till they sit inside a cluster where centering doesn't change the assigned datapoints anymore - convergence
+
+![k-means clustering](k-means_clustering.png)
+
+### dimensionally reduction
+reducing data for easier visulisation and computing   
+by reduction some information is always lost.
+
+### DBSCAN
+Density based clustering the algorithm checks if a point is in a densly populated area, which is defined by a certain amount of datapoints in a preset radius. Then it assigns the same cluster to all points that are connected through proximity, if there are no more datapoints near and there are still unassigned datapoints the process begins again with a randomly chosen unassigned datapoint. can be used for anomaly detection
+
+### Apiori Algorithm
+support - how often does a certain item appear in the datasets   
+firsty the support for each item is calculated, then a threshold is defined for which items are considered to be frequently bought. For the frequent items the support for pairs ist calculated. then again for the frequent pairs they are paired with the frequent items to create triplets, here pairs within the triplets that where eliminated in the last stage are no longer considered.
+
+
