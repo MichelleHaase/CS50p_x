@@ -314,3 +314,9 @@ quantifiers * Universal(∀) - for all ∀x isHuman(x), every x is human
             * Existential (∃) - there exists - ∃x Loves(x, John) someone love John     
 functions - Map object to another like MotherOf(x), Returns an object   
 logical connectives - as in propositional (¬, ∧, ∨, →, ↔)  
+
+#CS50AI Lecture 2 Uncertainty
+probability - range 0-1 on a 6 sided die roll 0 would be a 7 so impossible and one die with only three's a three would be certain so a probability of 1 represented mathematcally P(ω) is the probabiolity of a worldview.   
+ω represents the world we're looking at and Ω represents all the possible worlds. if all ω in Ω are added up the result is 1 since all the possiblilitys are accounted for so one of them must be true. this    
+![probability](probability.png)
+means the probability of the sum from all worlds in all possible worlds equals 1.   
