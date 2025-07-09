@@ -68,7 +68,7 @@
 ### greedy best-first search
 * expands the Node next, that is closes to the goal determined by heuristic function
 * heuristic function - h(n) gives an estimate to what a good solution might be
-  * the Manhatten Distance estimates distance by assuming grid lines so it gives an estimate of e g how many steps away a goal is. It is just a guess not an answer
+  * the Manhatten Distance estimates distance by assuming grid lines so it gives an estimate e g of how many steps away a goal is. It is just a guess not an answer
 * it makes choices based on the estimate of the heuristic, it always chooses the node with smallest h(n)
 * might not return optimal
   
@@ -493,4 +493,49 @@ prediction - the calculation of the distribution for a **future** state, given t
 smoothing - the calculation of the distribution for a **past** state, given the observations from start until now    
 most likely explanation - the calculation of the most likely **sequence of states**, given the observations from start until now   
 
- 
+# CS50AI Lecture 3 Optimization
+## Local Search 
+maintains a single node and searches by moving to neighboring node.  
+this is usually not used for problems where the shortest path needs to be found but for problems where a space needs  to be found that has the smallest path to several other spaces. for calculation the Manhatten distance can be used.  
+with the manhatten distrance a cost can be calculated for different states by summing up the distances, lining those states up in an bar graph called the **state-space landscape**, helps isolate the global maximum or minimum which is detected by the objective function (maximum) or cost function (minimum) 
+
+### Hill climbing
+steepest ascent   
+algorithm used to find a global maximum, from the current state the neighbor with the higher value is selected and moved to, till a maximum is found. might not actually find the  global max or min but can get stuck at a local one.
+
+stochastic  
+randomly uses one of the higher value neighbors not the highest one.  
+
+first choice  
+uses the first higher value neighbor, independent of potential even higher values  
+
+random restart  
+conducts the algorithm from multiple random starting states.  
+
+local beam search  
+keeps track of k highest value neighbors instead of just one. 
+
+## Simulated Annealing
+to find the the global min or max reliably, sometimes steps need to be taken to a neighbor with a worse value. In this algorithm the there is a lot a chaos (steps to neighbors with worse values) at the beginning and more order in later steps like the molecule movement in a system at high temperature compared to if the systems is cooled down quickly (Annealing).  
+
+function Simulated-Annealing(problem, max):
+
+    current = initial state of problem
+    for t = 1 to max:
+        T = Temperature(t)
+        neighbor = random neighbor of current
+        ΔE = how much better neighbor is than current
+        if ΔE > 0:
+            current = neighbor
+        with probability e^(ΔE/T) set current = neighbor
+    return current
+
+traveling Salesman
+
+minimize the total distance traveled to a certain number of cities, each city once ending at the starting city. this is a np complete problem. NP meaning Nondeterministic Polynomial time, and polynominal time being solvable proportional to a polynominal function based on the input n. So tractable in polynominal time are complexities from O(n) to O(n^k) as long as k is constant even if the algorithm isn't feasible in real life. A solution for a NP problem can be verified in polynominal time but finding it takes longer. An NP complete problem can be verified in P time but there is no tractable (quick enough way to be polynominal) way to the solution.
+
+## linear Programming
+min or max a cost functions, with constraints on the different variables.  
+if machine x1 cost 50/hour needs 5 units of labor/hour and produces 10 units/h.   
+machine x2 costs 80/h needs 2 labor/h and produces 12 units/h.   
+with the constraints of 20 units of labor and the goal of 90 units produced.
