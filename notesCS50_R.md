@@ -1,4 +1,4 @@
-# Lecture 0 Representing Data
+# Lecture 1 Representing Data
 in quartos(qmd) ctrl+ shift + K renders   
 rstudio still best ide since jupiter has problems finding the kernel and quarto has no var viewer   
 in rstudio klicking oon function and F1 opens help(also ?functionsname)
@@ -69,7 +69,7 @@ factor(data, labels = c("yes", "no"))
 # output: [1] yes no  yes yes no  yes no  no  yes no  yes no  yes yes no  yes no  no  yes
 # Levels: yes no
 ```
-# Lecture 1 transforming Data
+# Lecture 2 transforming Data
 ## logicals
 ```r
 data <- c(1,2,3,4,5,6,7,8,9)
@@ -119,18 +119,20 @@ cat(formatted_options, sep ="\n")
 #ask user
 feed_choice <- as.integer(readline("feed type: ,"))
 
-if (fee_choice){
+if (feed_choice < 1 || feed_choice > length(feed_options)){
     cat("invalid choice")
 }
 
 
 #print result
-selected <- feed_options[feed_choice]
-print(subset(chicks, feed == selected))
+else {
+    selected <- feed_options[feed_choice]
+    print(subset(chicks, feed == selected))
+}
 ```
 rbind() binds rows of df of the same size  
 Q1$quarter <- "Q1" # creates a new column and fills all rows with "Q1"  
-if else can be used as afunction similar to comperhension
+if else can be used as a function similar to comperhension
 ```r
 sales$value <- ifelse(sales$amount > 100, "high Value", "regular")
 ```
