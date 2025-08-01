@@ -698,10 +698,10 @@ url = input().strip()
 * object - instance of class
 * atributes are tecnically instance variables
 * self gives access to the object at creation
-* __init__ initializes an empty object when first created
+* \_\_init__ initializes an empty object when first created
 * by setting a input as None in the Initialization it becommes optional
-    def __init__(self, name, house=None):
-* __str__
+    def \_\_init__(self, name, house=None):
+* \_\_str__
 ```python
 class Student:
     ...
