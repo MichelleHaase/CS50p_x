@@ -23,7 +23,7 @@ predicting a value based on the input variable
 
 ### Loss function  
 describes the differences between the measured and the predicted values. if y is measured then ŷ is the predicted value for x on the linear regression. 
-![loss function](loss_function.png)
+![loss function](./pics/loss_function.png)
 from there the absolute error is calculated (absolute value -5 =5 symbol is |) |ŷ -y| , absolute since it doesn't matter if the measured value is underneath or above the prediction only how far it deviates.   
 Another meassure is the squared error which accentuates bigger errors since a big number squared equals a way bigger overall error than a small one.  
 the mean squared error is the squared error over all datapoints. All three of these measurements are ideally minimized.
@@ -32,7 +32,7 @@ the mean squared error is the squared error over all datapoints. All three of th
 not predicting a number but a a category eg is it going to rain or not.  
 
 Nearest neighbor classification predicts the class of a unknown datapoint by proximity to the closest known point.
-![Neirest Neighbor](NN.png)
+![Neirest Neighbor](./pics/NN.png)
 NN would predict the unknown (white) Datapoint as a day without rain (red).   
 K-NN uses the same overall technique but uses the majority vote from k amount of neighbors around the unknown dataset.  
 
@@ -61,7 +61,7 @@ convergence - when the model’s loss stops changing significantly with further 
 ### k-means Clustering
 the amount of clusters is preset by the programmer, the model then creates k centerpoints and puts them in the data, in each iteration the points are assigned the datapoints closest to them and then centered within them. like this the centerpoints move around the data till they sit inside a cluster where centering doesn't change the assigned datapoints anymore - convergence
 
-![k-means clustering](k-means_clustering.png)
+![k-means clustering](./pics/k-means_clustering.png)
 
 ### dimensionally reduction
 reducing data for easier visulisation and computing   

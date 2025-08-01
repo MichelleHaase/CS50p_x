@@ -320,7 +320,7 @@ probability - range 0-1 on a 6 sided die roll 0 would be a 7 so impossible and o
 
 ω represents the world we're looking at and Ω represents all the possible worlds. if all ω in Ω are added up the result is 1 since all the possibility are accounted for so one of them must be true. this    
 
-![probability](probability.png)
+![probability](./pics/probability.png)
 
 means the probability of the sum from all worlds in all possible worlds equals 1.   
 
@@ -396,20 +396,20 @@ in an example if we want to know the prob of one of two dice rolling a six, just
 * Marginalisation   
 P(a) = P(a,b) + P(a,¬b)   
 meaning in a world of a and b, since there are only two cases for a being true, the probability of a is 'a and b' plus 'a and not b'   
-![Marginilisation_long_form](marginalization.png)
+![Marginilisation_long_form](./pics/marginalization.png)
 here in a world of x and y the probability of a certain event for x is for all possible event for y the sum over of for the probability of x and y. In the joint world of x and y the probability for a certain x is the joint probability of that certain x and all possible y.  This is a way to calculate an individual prob from a distribution.  
 
 * conditioning  
 P(a) = P(a|b)P(b) + P(a|¬b)P(¬b)   
 this is the way to calculate P(a) if the joint probability is known using the conditional probabilities. the Probability of a is the Probability that a is true given that b is true times the probability for b plus the probability for a being true given that b is not true times the prob for not b.   
 this again also looks more formal and considering all possible events, like this   
-![conditioning_long_form](conditioning.png)
+![conditioning_long_form](./pics/conditioning.png)
 
 ## Bayesian Networks
 data struct that represents the dependencies among vars  
 directed graph, each node is a random variable, arrows indicate  parentship, each Node(X) has a probability distribution **P**(X|Parents(X))  
 In this scenario :  
-![scenario](bayesiannetwork.png)  
+![scenario](./pics/bayesiannetwork.png)  
 the top Node has no parents and is therefor not conditional in this example  
 
 **Rain**  
@@ -459,7 +459,7 @@ since conditional probability is proportional to joined probability
 there are only two possible world either the train is on time or it isn't so adding those up gives us the probability for our query   
 α[P(Appointment,light,no,on time) + P(Appointment,light,no,delayed)]   
 with the given observation we can calculate the possible worlds for the Train variable this allows to consider the influence of Train solely based on the probability of the events (delayed or on time) without the knowledge of which actually takes place.  
-![Inference_by_Enumeration](inferencebyenumeration.png)  
+![Inference_by_Enumeration](./pics/inferencebyenumeration.png)  
 X - query  
 e - evidence  
 y - the range of values the hidden vars can have  

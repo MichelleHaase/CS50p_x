@@ -43,9 +43,9 @@ SELECT COUNT(DISTINCT "publisher") FROM "list";
 * many to many many authors write books together
 
 ### Crows foot Notation
-![alt text](p17.jpg)
+![alt text](./pics/p17.jpg)
 One to One would look like
-![alt text](p19.jpg)
+![alt text](./pics/p19.jpg)
 
 ## subqueries
 ```sql

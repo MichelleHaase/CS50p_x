@@ -19,7 +19,7 @@ the head is used for the title and metadata
 the body is the visable part of the page for the user   
 
 Document Object Model (DOM)  
-![dom overview](dom.png)
+![dom overview](./pics/dom.png)
 
 headings - declared with the \<h1>\</h1> h1 biggest h6 smallest   
 lists - ordered(numbered) lists \<ol>\</ol>, list item inside the \<li>Item\</li> the items get numbered automatically. unordered(bulletpoints) lists \<ul>\</ul> same in list elements   
